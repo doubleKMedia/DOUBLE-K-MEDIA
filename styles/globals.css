@@ -18,6 +18,11 @@ button {
   cursor: pointer;
 }
 
+ul {
+  padding: 0;
+  margin: 0;
+}
+
 * {
   box-sizing: border-box;
 }
