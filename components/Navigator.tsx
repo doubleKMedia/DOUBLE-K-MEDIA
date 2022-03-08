@@ -151,11 +151,13 @@ const Nav = ({ mode }: { mode: 'dark' | 'light' }) => {
           }
 
           nav.dark {
+            background-color: #f9f9f9;
             --nav-color: #222222;
           }
 
           nav.light,
           nav.open {
+            background-color: rgba(0, 0, 0, 0.5);
             --nav-color: #ffffff;
           }
 
@@ -228,7 +230,7 @@ const Nav = ({ mode }: { mode: 'dark' | 'light' }) => {
 
           nav.open {
             height: 100vh;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.8);
           }
 
           nav.open > .routes {
