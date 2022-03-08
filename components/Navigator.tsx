@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { atom } from 'recoil';
 import navRoutes from './navRoutes.json';
 
 type routeType = {
@@ -118,8 +117,6 @@ const Route = ({ route, isLinkOpen, isMenuOpen }: { route: routeType; isLinkOpen
     </div>
   );
 };
-
-export const navModeAtom = atom<'dark' | 'light'>({ key: 'navMode', default: 'dark' });
 
 const Nav = ({ mode }: { mode: 'dark' | 'light' }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
