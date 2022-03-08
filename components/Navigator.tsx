@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { atom } from 'recoil';
 import navRoutes from './navRoutes.json';
 
 type routeType = {
@@ -8,24 +9,32 @@ type routeType = {
   list: { href: string; name: string }[];
 };
 
-const Routes = ({ route, isLinkOpen, isMenuOpen }: { route: routeType; isLinkOpen: boolean; isMenuOpen: boolean }) => {
+const Route = ({ route, isLinkOpen, isMenuOpen }: { route: routeType; isLinkOpen: boolean; isMenuOpen: boolean }) => {
   const { head, list } = route;
 
   return (
     <div className={`route ${isMenuOpen ? 'open' : ''}`}>
       <span className={`head ${isLinkOpen ? 'open' : ''}`}>
-        <Link href={head.href}>{head.name}</Link>
+        <Link href={head.href}>
+          <a>{head.name}</a>
+        </Link>
       </span>
       <ul>
         {list.map((l, i) => (
           <li key={i}>
-            <Link href={l.href}>{l.name}</Link>
+            <Link href={l.href}>
+              <a>{l.name}</a>
+            </Link>
           </li>
         ))}
       </ul>
 
       <style jsx>
         {`
+          .route a {
+            color: var(--nav-color);
+          }
+
           .head {
             position: relative;
             display: flex;
@@ -110,9 +119,12 @@ const Routes = ({ route, isLinkOpen, isMenuOpen }: { route: routeType; isLinkOpe
   );
 };
 
+export const navModeAtom = atom<'dark' | 'light'>({ key: 'navMode', default: 'dark' });
+
 const Nav = ({ mode }: { mode: 'dark' | 'light' }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const routes: routeType[] = navRoutes;
+  const Routes = routes.map((route, i) => <Route route={route} isLinkOpen={false} isMenuOpen={isMenuOpen} key={i} />);
 
   const router = useRouter();
   console.log(router);
@@ -122,11 +134,7 @@ const Nav = ({ mode }: { mode: 'dark' | 'light' }) => {
       <div className="logo">
         <Link href="/">DOUBLE K MEDIA</Link>
       </div>
-      <div className="routes">
-        {routes.map((route, i) => (
-          <Routes route={route} isLinkOpen={false} isMenuOpen={isMenuOpen} key={i} />
-        ))}
-      </div>
+      <div className="routes">{Routes}</div>
       <button className={`menu ${isMenuOpen ? 'open' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
         <div className="line" />
       </button>
