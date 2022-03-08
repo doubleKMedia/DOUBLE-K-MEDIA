@@ -1,10 +1,16 @@
+import Link from 'next/link';
+
 const Footer = () => {
   return (
     <footer>
       <div className="head">
         <div className="info">
-          <button onClick={() => alert('go privacy policy')}>개인정보 처리방침</button>
-          <button onClick={() => alert('go terms of use')}>홈페이지 이용약관</button>
+          <Link href={'/menual/privacy-policy'}>
+            <a target="_blank">개인정보 처리방침</a>
+          </Link>
+          <Link href={'/menual/terms-of-use'}>
+            <a target="_blank">홈페이지 이용약관</a>
+          </Link>
           <button onClick={() => alert('go E-mail collection refusal')}>이메일 수집거부</button>
         </div>
         <div className="others">
@@ -66,6 +72,7 @@ const Footer = () => {
           }
 
           .head button,
+          .head a,
           .head span {
             font-size: 11px;
           }

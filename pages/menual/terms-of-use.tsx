@@ -245,6 +245,20 @@ const TermsOfUse = () => {
         <br />
         <br />이 약관은 &lt;사이트 개설일&gt;부터 시행합니다.
       </span>
+
+      <style jsx>
+        {`
+          span {
+            font-size: 14px;
+            word-break: keep-all;
+          }
+
+          .head {
+            font-size: 24px;
+            font-weight: bolder;
+          }
+        `}
+      </style>
     </Menual>
   );
 };
