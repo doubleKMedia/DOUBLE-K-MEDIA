@@ -1,23 +1,31 @@
 import Head from 'next/head';
 import { ReactNode } from 'react';
+import Footer from './Footer';
+import Nav from './Navigator';
 
-const Layout = ({ children, title, description }: { children: ReactNode; title: string; description: string }) => {
+const Layout = ({ children, title, description, mode }: { children: ReactNode; title: string; description: string; mode: 'dark' | 'light' }) => {
   return (
-    <div className="layout">
+    <div className={`layout`}>
       <Head>
         <title>{title} | 더블케이미디어</title>
         <meta name="description" content={description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <nav></nav>
+
+      <Nav mode={mode} />
 
       <main>{children}</main>
 
-      <footer></footer>
+      <Footer />
 
       <style jsx>
         {`
           .layout {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
           }
         `}
       </style>
