@@ -1,0 +1,56 @@
+[
+  {
+    "title": "검색광고",
+    "titleEn": "Search Advert",
+    "imgSrc": "/service/search_advert.png",
+    "description": ["비용대비 최대의 효과를 낼 수 있는", "입찰 전략"]
+  },
+  {
+    "title": "SNS광고",
+    "titleEn": "Social Network Services",
+    "imgSrc": "/service/sns.png",
+    "description": ["10대부터 50대까지 연령층에 맞는", "SNS 플랫폼을 활용한 마케팅"]
+  },
+  {
+    "title": "포털배너광고",
+    "titleEn": "Portal Display Advert",
+    "imgSrc": "/service/portal_display_advert.png",
+    "description": ["메가트레픽을 활용한", "고객 유입과 이를 활용한 전환 유도까지!"]
+  },
+  {
+    "title": "웹툰 광고",
+    "titleEn": "Webtoon Advert",
+    "imgSrc": "/null.png",
+    "description": ["웹툰의 인지도를 활용한 자연스러운 브랜딩과", "기획을 통한 전환유도"]
+  },
+  {
+    "title": "네트워크 배너광고",
+    "titleEn": "Network Display Advert",
+    "imgSrc": "/service/network_display_advert.png",
+    "description": ["영향력 있는 매체에 놓치는 영역이 없도록", "다양한 배너 매체 활용"]
+  },
+  {
+    "title": "바이럴광고",
+    "titleEn": "Viral Marketing",
+    "imgSrc": "/service/viral_marketing.png",
+    "description": ["신뢰도가 가장 높은 '고객 사이의 입소문'이", "끊기지 않는 합리적인 비용의 바이럴 마케팅"]
+  },
+  {
+    "title": "영상광고",
+    "titleEn": "Video Marketing",
+    "imgSrc": "/service/video_marketing.png",
+    "description": ["트렌드를 앞서가는 영상광고로", "브랜딩과 퍼포먼스를 동시에 !"]
+  },
+  {
+    "title": "홈페이지 제작",
+    "titleEn": "Website Making",
+    "imgSrc": "/service/website_making.png",
+    "description": ["합리적인 비용으로 빠르게 제작되는", "홈페이지 제작 프로세스"]
+  },
+  {
+    "title": "DB 수집",
+    "titleEn": "DB Collecting",
+    "imgSrc": "/service/DB_collecting.png",
+    "description": ["DB 수집을 위한 페이지 제작부터", "CPC, CPA 매체까지 종합적인 솔루션"]
+  }
+]
