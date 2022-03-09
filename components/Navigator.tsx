@@ -3,24 +3,24 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import navRoutes from './navRoutes.json';
 
-type routeType = {
+type routeInfoType = {
   head: { href: string; name: string };
   list: { href: string; name: string }[];
 };
 
-const Route = ({ route, isLinkOpen, isMenuOpen }: { route: routeType; isLinkOpen: boolean; isMenuOpen: boolean }) => {
-  const { head, list } = route;
+const Route = ({ routeInfo, isMenuOpen, path }: { routeInfo: routeInfoType; isMenuOpen: boolean; path: string }) => {
+  const { head, list } = routeInfo;
 
   return (
     <div className={`route ${isMenuOpen ? 'open' : ''}`}>
-      <span className={`head ${isLinkOpen ? 'open' : ''}`}>
+      <span className={`head ${head.href === path ? 'open' : ''}`}>
         <Link href={head.href}>
           <a>{head.name}</a>
         </Link>
       </span>
       <ul>
         {list.map((l, i) => (
-          <li key={i}>
+          <li className={l.href === path ? 'open' : ''} key={i}>
             <Link href={l.href}>
               <a>{l.name}</a>
             </Link>
@@ -108,7 +108,8 @@ const Route = ({ route, isLinkOpen, isMenuOpen }: { route: routeType; isLinkOpen
             transition: opacity 0.1s, width 0.2s ease-out;
           }
 
-          .route.open > ul > li:hover::after {
+          .route.open > ul > li:hover::after,
+          .route.open > ul > li.open::after {
             opacity: 1;
             width: 100%;
           }
@@ -119,19 +120,23 @@ const Route = ({ route, isLinkOpen, isMenuOpen }: { route: routeType; isLinkOpen
 };
 
 const Nav = ({ mode }: { mode: 'dark' | 'light' }) => {
+  const LOGO = 'DOUBLE K MEDIA';
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const routes: routeType[] = navRoutes;
-  const Routes = routes.map((route, i) => <Route route={route} isLinkOpen={false} isMenuOpen={isMenuOpen} key={i} />);
+  const routeInfos: routeInfoType[] = navRoutes;
+  const { route, pathname } = useRouter();
 
-  const router = useRouter();
-  console.log(router);
+  console.log('nav', route, pathname);
 
   return (
     <nav className={`${mode} ${isMenuOpen ? 'open' : ''}`}>
       <div className="logo">
-        <Link href="/">DOUBLE K MEDIA</Link>
+        <Link href="/">{LOGO}</Link>
       </div>
-      <div className="routes">{Routes}</div>
+      <div className="routes">
+        {routeInfos.map((routeInfo, i) => (
+          <Route routeInfo={routeInfo} isMenuOpen={isMenuOpen} path={route} key={i} />
+        ))}
+      </div>
       <button className={`menu ${isMenuOpen ? 'open' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
         <div className="line" />
       </button>

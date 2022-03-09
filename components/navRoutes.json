@@ -1,29 +1,29 @@
 [
   {
-    "head": { "href": "/", "name": "서비스" },
-    "list": [{ "href": "/", "name": "더블케이미디어 서비스" }]
+    "head": { "href": "/service", "name": "서비스" },
+    "list": [{ "href": "/service", "name": "더블케이미디어 서비스" }]
   },
   {
-    "head": { "href": "/", "name": "회사 소개" },
-    "list": [{ "href": "/", "name": "더블케이미디어 소개" }]
+    "head": { "href": "/introduce", "name": "회사 소개" },
+    "list": [{ "href": "/introduce", "name": "더블케이미디어 소개" }]
   },
   {
-    "head": { "href": "/", "name": "포트폴리오" },
-    "list": [{ "href": "/", "name": "작업 내역" }]
+    "head": { "href": "/portfolio", "name": "포트폴리오" },
+    "list": [{ "href": "/portfolio", "name": "작업 내역" }]
   },
   {
-    "head": { "href": "/", "name": "홈페이지 제작문의" },
+    "head": { "href": "/homepage", "name": "홈페이지 제작문의" },
     "list": [
-      { "href": "/", "name": "회사 홈페이지" },
-      { "href": "/", "name": "쇼핑몰" },
-      { "href": "/", "name": "이벤트 랜딩" },
-      { "href": "/", "name": "디자인" },
-      { "href": "/", "name": "기타" },
-      { "href": "/", "name": "프로젝트 문의하기" }
+      { "href": "/homepage", "name": "회사 홈페이지" },
+      { "href": "/shopping-mall", "name": "쇼핑몰" },
+      { "href": "/event-landing", "name": "이벤트 랜딩" },
+      { "href": "/design", "name": "디자인" },
+      { "href": "/other", "name": "기타" },
+      { "href": "/project-inquiry", "name": "프로젝트 문의하기" }
     ]
   },
   {
-    "head": { "href": "/", "name": "마케팅 견적문의" },
-    "list": [{ "href": "/", "name": "마케팅 견적 온라인 문의" }]
+    "head": { "href": "/marketing", "name": "마케팅 견적문의" },
+    "list": [{ "href": "/marketing", "name": "마케팅 견적 온라인 문의" }]
   }
 ]
