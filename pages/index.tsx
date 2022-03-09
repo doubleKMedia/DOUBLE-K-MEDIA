@@ -19,12 +19,14 @@ const Home: NextPage = () => {
       else if (mode === 'dark' && !isOver) setMode('light');
     };
 
+    scrollDetection();
+
     window.addEventListener('scroll', scrollDetection);
 
     return () => {
       window.removeEventListener('scroll', scrollDetection);
     };
-  }, [mode]);
+  }, [mode, bannerRef]);
 
   return (
     <Layout title={TITLE} description={DESCRIPTION} mode={mode}>
