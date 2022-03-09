@@ -5,8 +5,8 @@ import OrderCard from '../components/home/OrderCard';
 import Layout from '../components/Layout';
 
 const Home: NextPage = () => {
-  const TITLE = 'Service';
-  const DESCRIPTION = '더블케이미디어가 제공하는 다양한 서비스의 목록을 볼 수 있는 페이지입니다.';
+  const TITLE = 'Home';
+  const DESCRIPTION = '더블케이미디어는 온라인과 오프라인의 경계를 뛰어넘는 최고의 광고 컨설팅을 약속합니다.';
   const [mode, setMode] = useState<'dark' | 'light'>('light');
   const bannerRef = createRef<HTMLDivElement>();
 
@@ -38,7 +38,7 @@ const Home: NextPage = () => {
           <span className="ment" onClick={() => setMode('dark')}>
             우리는
             <br />
-            <strong>'광고주의 입장'</strong>에서
+            <strong>{"'광고주의 입장'"}</strong>에서
             <br />
             생각하고 행동합니다.
           </span>

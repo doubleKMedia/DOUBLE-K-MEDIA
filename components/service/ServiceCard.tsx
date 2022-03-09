@@ -15,7 +15,7 @@ const ServiceCard = (props: ServiceCardPropsType) => {
   return (
     <div className="service-card">
       <div className="image">
-        <Image src={imgSrc} layout="fill" objectFit="cover" objectPosition="50% 50%" priority />
+        <Image src={imgSrc} layout="fill" objectFit="cover" objectPosition="50% 50%" alt={titleEn} priority />
       </div>
       <div className="head">
         <span className="titleEn">{titleEn}</span>

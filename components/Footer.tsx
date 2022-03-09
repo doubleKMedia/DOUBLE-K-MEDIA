@@ -17,12 +17,12 @@ const Footer = () => {
         <div className="others">
           <Link href="https://www.instagram.com/">
             <a target="_blank">
-              <Image src={'/instagram.png'} width={15} height={15} objectFit="cover" />
+              <Image src={'/instagram.png'} width={15} height={15} objectFit="cover" alt="instagram" />
             </a>
           </Link>
           <Link href="https://www.facebook.com/">
             <a target="_blank">
-              <Image src={'/facebook.png'} width={15} height={15} objectFit="cover" />
+              <Image src={'/facebook.png'} width={15} height={15} objectFit="cover" alt="facebook" />
             </a>
           </Link>
           <button onClick={() => alert('go download company profile')}>회사소개서 다운로드</button>

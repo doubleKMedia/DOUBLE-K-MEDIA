@@ -5,8 +5,8 @@ import ServiceCard, { cardInfoType } from '../../components/service/ServiceCard'
 import serviceList from './serviceList.json';
 
 const Service: NextPage = () => {
-  const TITLE = 'Home';
-  const DESCRIPTION = '더블케이미디어는 온라인과 오프라인의 경계를 뛰어넘는 최고의 광고 컨설팅을 약속합니다.';
+  const TITLE = 'Service';
+  const DESCRIPTION = '더블케이미디어가 제공하는 다양한 서비스의 목록을 볼 수 있는 페이지입니다.';
   const cardInfos: cardInfoType[] = serviceList;
 
   return (
@@ -20,15 +20,15 @@ const Service: NextPage = () => {
           <ServiceCard cardInfo={cardInfos[0]}>
             <div className="default">
               <p>
-                <Image src="/google.png" width={12} height={12} />
+                <Image src="/google.png" width={12} height={12} alt="google" />
                 <strong>구글</strong>구글검색
               </p>
               <p>
-                <Image src="/kakko.png" width={12} height={12} />
+                <Image src="/kakko.png" width={12} height={12} alt="kakko" />
                 <strong>카카오</strong>브랜딩DA, 타임보드
               </p>
               <p>
-                <Image src="/naver.png" width={12} height={12} />
+                <Image src="/naver.png" width={12} height={12} alt="naver" />
                 <strong>네이버</strong>브랜드검색, 파워링크, 파워컨텐츠, 쇼핑검색
               </p>
             </div>
@@ -36,15 +36,15 @@ const Service: NextPage = () => {
           <ServiceCard cardInfo={cardInfos[1]}>
             <div className="center">
               <p>
-                <Image src="/instagram.png" width={12} height={12} />
+                <Image src="/instagram.png" width={12} height={12} alt="instagram" />
                 <strong>인스타그램,</strong>
-                <Image src="/facebook.png" width={12} height={12} />
+                <Image src="/facebook.png" width={12} height={12} alt="facebook" />
                 <strong>페이스북,</strong>
               </p>
               <p>
-                <Image src="/tiktok.png" width={12} height={12} />
+                <Image src="/tiktok.png" width={12} height={12} alt="tiktok" />
                 <strong>틱톡,</strong>
-                <Image src="/zigzag.png" width={12} height={12} />
+                <Image src="/zigzag.png" width={12} height={12} alt="zigzag" />
                 <strong>지그재그</strong>
               </p>
             </div>
@@ -52,11 +52,11 @@ const Service: NextPage = () => {
           <ServiceCard cardInfo={cardInfos[2]}>
             <div className="default">
               <p>
-                <Image src="/naver.png" width={12} height={12} />
+                <Image src="/naver.png" width={12} height={12} alt="naver" />
                 <strong>네이버</strong>브랜딩DA, 타임보드
               </p>
               <p>
-                <Image src="/nate.png" width={12} height={12} />
+                <Image src="/nate.png" width={12} height={12} alt="nate" />
                 <strong>네이트</strong>메인 홈페이지 배너
               </p>
             </div>
@@ -64,9 +64,9 @@ const Service: NextPage = () => {
           <ServiceCard cardInfo={cardInfos[3]}>
             <div className="center">
               <p>
-                <Image src="/naver_webtoon.png" width={12} height={12} />
+                <Image src="/naver_webtoon.png" width={12} height={12} alt="naver webtoon" />
                 <strong>네이버 웹툰,</strong>
-                <Image src="/kakko_webtoon.png" width={12} height={12} />
+                <Image src="/kakko_webtoon.png" width={12} height={12} alt="kakko webtoon" />
                 <strong>카카오 웹툰</strong>
               </p>
             </div>
@@ -74,11 +74,11 @@ const Service: NextPage = () => {
           <ServiceCard cardInfo={cardInfos[4]}>
             <div className="default">
               <p>
-                <Image src="/naver.png" width={12} height={12} />
+                <Image src="/naver.png" width={12} height={12} alt="naver" />
                 <strong>네이버</strong>네이버GFA (모바일메인/서브/스마트채널)
               </p>
               <p>
-                <Image src="/kakko.png" width={12} height={12} />
+                <Image src="/kakko.png" width={12} height={12} alt="kakko" />
                 <strong>카카오</strong>카카오모먼트, 비즈보드, 모비온/크리테오/GDN/ADN/타게팅게이츠 등
               </p>
             </div>
@@ -93,9 +93,9 @@ const Service: NextPage = () => {
           <ServiceCard cardInfo={cardInfos[6]}>
             <div className="center">
               <p>
-                <Image src="/youtube.png" width={12} height={12} />
+                <Image src="/youtube.png" width={12} height={12} alt="youtube" />
                 <strong>유튜브,</strong>
-                <Image src="/nitmus.png" width={12} height={12} />
+                <Image src="/nitmus.png" width={12} height={12} alt="nitmus" />
                 <strong>니트머스</strong>
               </p>
             </div>
