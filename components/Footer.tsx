@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 const Footer = () => {
@@ -14,8 +15,16 @@ const Footer = () => {
           <button onClick={() => alert('go E-mail collection refusal')}>이메일 수집거부</button>
         </div>
         <div className="others">
-          <button onClick={() => alert('go instagram')}>인스타그램</button>
-          <button onClick={() => alert('go facebook')}>페이스북</button>
+          <Link href="https://www.instagram.com/">
+            <a target="_blank">
+              <Image src={'/instagram.png'} width={15} height={15} objectFit="cover" />
+            </a>
+          </Link>
+          <Link href="https://www.facebook.com/">
+            <a target="_blank">
+              <Image src={'/facebook.png'} width={15} height={15} objectFit="cover" />
+            </a>
+          </Link>
           <button onClick={() => alert('go download company profile')}>회사소개서 다운로드</button>
           <button onClick={() => alert('go customized proposal request')}>맞춤제안서 요청하기</button>
           <span>02-5555-5555</span>
@@ -80,6 +89,8 @@ const Footer = () => {
           .info,
           .others {
             display: flex;
+            justify-content: center;
+            align-items: center;
             gap: 15px;
           }
 
