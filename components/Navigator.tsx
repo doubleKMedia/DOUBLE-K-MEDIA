@@ -152,7 +152,7 @@ const Nav = ({ mode }: { mode: 'dark' | 'light' }) => {
             width: 100%;
             padding: 50px 100px;
             transform: background-color 0.3s;
-            z-index: 1;
+            z-index: 50;
           }
 
           nav.dark {
