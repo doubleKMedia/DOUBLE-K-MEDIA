@@ -3,6 +3,12 @@ import { useEffect } from 'react';
 
 const Map = ({ CLIENT_ID }: { CLIENT_ID: string }) => {
   const mapSetting = () => {
+    try {
+      if (!naver) return;
+    } catch (error) {
+      return;
+    }
+
     const location = {
       x: 37.26737769181738,
       y: 127.03060404322764,
@@ -39,12 +45,21 @@ const Map = ({ CLIENT_ID }: { CLIENT_ID: string }) => {
         type="text/javascript"
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${CLIENT_ID}`}
         strategy="beforeInteractive"
-        defer={false}
+        onLoad={() => mapSetting()}
       ></Script>
 
       <style jsx>
         {`
           #map {
+            width: 100%;
+            height: 100%;
+          }
+
+          #map > span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
             width: 100%;
             height: 100%;
           }
