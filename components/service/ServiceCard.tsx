@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 export type cardInfoType = { title: string; titleEn: string; imgSrc: string; description: string[] };
 
@@ -22,11 +22,11 @@ const ServiceCard = (props: ServiceCardPropsType) => {
         <span className="title">{title}</span>
       </div>
       <div className="description">
-        {description.map((str) => (
-          <>
+        {description.map((str, i) => (
+          <React.Fragment key={i}>
             {str}
             <br />
-          </>
+          </React.Fragment>
         ))}
       </div>
       <div className="contents">{children}</div>
