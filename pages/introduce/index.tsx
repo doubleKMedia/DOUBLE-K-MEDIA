@@ -96,6 +96,7 @@ const Introduce: NextPage<IntroducePropsType> = (Props: IntroducePropsType) => {
         {`
           .introduce {
             position: relative;
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
