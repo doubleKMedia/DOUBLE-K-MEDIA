@@ -123,9 +123,7 @@ const Nav = ({ mode }: { mode: 'dark' | 'light' }) => {
   const LOGO = 'DOUBLE K MEDIA';
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const routeInfos: routeInfoType[] = navRoutes;
-  const { route, pathname } = useRouter();
-
-  console.log('nav', route, pathname);
+  const { route } = useRouter();
 
   return (
     <nav className={`${mode} ${isMenuOpen ? 'open' : ''}`}>
