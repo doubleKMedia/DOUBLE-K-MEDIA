@@ -126,7 +126,8 @@ const ScrollListView = ({ listData, link }: { listData: listDataType; link: stri
             position: relative;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            width: 100%;
             gap: 20px;
             padding: 20px 0 15px 0;
             border-bottom: 1px solid #e1e1e1;
@@ -137,13 +138,14 @@ const ScrollListView = ({ listData, link }: { listData: listDataType; link: stri
           .description {
             position: relative;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: flex-start;
             gap: 10px;
             width: 100%;
           }
 
           .description {
+            justify-content: flex-start;
             align-items: center;
             padding-top: 10px;
           }
