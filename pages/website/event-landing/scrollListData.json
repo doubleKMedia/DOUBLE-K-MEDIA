@@ -1,0 +1,26 @@
+[
+  {
+    "imgsrc": "/desktop.png",
+    "title": "비즈니스 타입",
+    "price": 60,
+    "productionPage": "서브페이지 1P 이내",
+    "productionPeriod": "기간 협의",
+    "description": "휴대폰, 금융, 중고차 등 간단한 신청에 적합한 상품"
+  },
+  {
+    "imgsrc": "/desktop.png",
+    "title": "프로 타입",
+    "price": 120,
+    "productionPage": "메인 1P + 서브페이지 7P 이내",
+    "productionPeriod": "기간 협의",
+    "description": "하나의 랜딩페이지 안에서 여러가지 상품을 광고해야 할 때 적합한 상품으로 고퀄리티 이미지 및 일러스트 연출"
+  },
+  {
+    "imgsrc": "/desktop.png",
+    "title": "프리미엄 타입",
+    "price": 150,
+    "productionPage": "메인 1P + 서브페이지 10P 이내 + 관리자페이지",
+    "productionPeriod": "기간 협의",
+    "description": "여러가지 신청 정보를 보다 쉽게 관리할 수 있도록 관리자 페이지와 연동하여 확인할 수 있도록 제작"
+  }
+]
