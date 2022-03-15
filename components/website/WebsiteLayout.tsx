@@ -12,7 +12,6 @@ const WebsiteLayout = ({ children }: { children: ReactNode }) => {
   const DESCRIPTION = '더블케이미디어가 제시하는 홈페이지 제작 템플릿을 보고 문의를 합니다.';
   const { route } = useRouter();
   const [, root, path] = route.split('/');
-  console.log(root, path);
 
   return (
     <Layout title={TITLE} description={DESCRIPTION} mode="light">
