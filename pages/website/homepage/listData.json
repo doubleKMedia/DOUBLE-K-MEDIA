@@ -1,0 +1,23 @@
+[
+  {
+    "imgsrc": "/laptop.png",
+    "title": "간현수련원",
+    "subtitle": "반응형 웹사이트 구축",
+    "description": "개성있는 사이트 디자인 등 고객님이 원하시는 모든 서비스로 상상 이상의 아이덴티티 디자인을 제공해 드립니다.",
+    "link": "https://www.naver.com/"
+  },
+  {
+    "imgsrc": "/laptop.png",
+    "title": "더블케이미디어",
+    "subtitle": "반응형 웹사이트 구축",
+    "description": "개성있는 사이트 디자인 등 고객님이 원하시는 모든 서비스로 상상 이상의 아이덴티티 디자인을 제공해 드립니다.",
+    "link": "https://www.naver.com/"
+  },
+  {
+    "imgsrc": "/laptop.png",
+    "title": "네이버",
+    "subtitle": "반응형 웹사이트 구축",
+    "description": "개성있는 사이트 디자인 등 고객님이 원하시는 모든 서비스로 상상 이상의 아이덴티티 디자인을 제공해 드립니다.",
+    "link": "https://www.naver.com/"
+  }
+]
