@@ -10,18 +10,23 @@ type routeInfoType = {
 
 const Route = ({ routeInfo, isMenuOpen, path }: { routeInfo: routeInfoType; isMenuOpen: boolean; path: string }) => {
   const { head, list } = routeInfo;
+  const paths = path.split('/');
+  paths.shift();
+  const headPath = paths.shift();
+  const listPath = paths.shift() ?? '/';
+  const isHeadOpen = head.href === headPath;
 
   return (
     <div className={`route ${isMenuOpen ? 'open' : ''}`}>
-      <span className={`head ${head.href === path ? 'open' : ''}`}>
-        <Link href={head.href}>
+      <span className={`head ${isHeadOpen ? 'open' : ''}`}>
+        <Link href={`/${head.href}`}>
           <a>{head.name}</a>
         </Link>
       </span>
       <ul>
         {list.map((l, i) => (
-          <li className={l.href === path ? 'open' : ''} key={i}>
-            <Link href={l.href}>
+          <li className={l.href === listPath && isHeadOpen ? 'open' : ''} key={i}>
+            <Link href={`/${head.href}${l.href === '/' ? '' : `/${l.href}`}`}>
               <a>{l.name}</a>
             </Link>
           </li>
@@ -180,6 +185,16 @@ const Nav = ({ mode }: { mode: 'dark' | 'light' }) => {
             color: var(--nav-color);
             padding-top: 14px;
             margin-right: 100px;
+          }
+
+          @media screen and (max-width: 1050px) {
+            .routes {
+              visibility: hidden;
+            }
+
+            nav.open > .routes {
+              visibility: visible;
+            }
           }
 
           .menu {
