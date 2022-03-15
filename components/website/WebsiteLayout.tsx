@@ -54,6 +54,7 @@ const WebsiteLayout = ({ children }: { children: ReactNode }) => {
             align-items: center;
             width: 100%;
             height: 400px;
+            z-index: 1;
           }
 
           .banner-img {
