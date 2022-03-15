@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
+import { createRef, ReactNode, useEffect, useState } from 'react';
 import Layout from '../Layout';
 import navRoutes from '../navRoutes.json';
 
@@ -12,11 +12,31 @@ const WebsiteLayout = ({ children }: { children: ReactNode }) => {
   const DESCRIPTION = '더블케이미디어가 제시하는 홈페이지 제작 템플릿을 보고 문의를 합니다.';
   const { route } = useRouter();
   const [, root, path] = route.split('/');
+  const [mode, setMode] = useState<'dark' | 'light'>('light');
+  const bannerRef = createRef<HTMLDivElement>();
+
+  useEffect(() => {
+    const scrollDetection = () => {
+      const target = bannerRef.current;
+      if (!target) return;
+      const isOver = target.offsetHeight + target.getBoundingClientRect().y < 50;
+      if (mode === 'light' && isOver) setMode('dark');
+      else if (mode === 'dark' && !isOver) setMode('light');
+    };
+
+    scrollDetection();
+
+    window.addEventListener('scroll', scrollDetection);
+
+    return () => {
+      window.removeEventListener('scroll', scrollDetection);
+    };
+  }, [mode, bannerRef]);
 
   return (
-    <Layout title={TITLE} description={DESCRIPTION} mode="light">
+    <Layout title={TITLE} description={DESCRIPTION} mode={mode}>
       <div className="homepage">
-        <div className="banner">
+        <div className="banner" ref={bannerRef}>
           <div className="banner-img">
             <Image src={'/website/website_banner.png'} layout="fill" objectFit="cover" alt="website banner" priority />
           </div>
