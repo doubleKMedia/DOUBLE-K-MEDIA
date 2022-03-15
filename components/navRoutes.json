@@ -12,9 +12,9 @@
     "list": [{ "href": "/portfolio", "name": "작업 내역" }]
   },
   {
-    "head": { "href": "/homepage", "name": "홈페이지 제작문의" },
+    "head": { "href": "/website", "name": "홈페이지 제작문의" },
     "list": [
-      { "href": "/homepage", "name": "회사 홈페이지" },
+      { "href": "/website", "name": "회사 홈페이지" },
       { "href": "/shopping-mall", "name": "쇼핑몰" },
       { "href": "/event-landing", "name": "이벤트 랜딩" },
       { "href": "/design", "name": "디자인" },
