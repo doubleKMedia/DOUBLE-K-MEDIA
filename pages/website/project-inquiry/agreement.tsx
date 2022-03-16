@@ -1,13 +1,13 @@
 import { NextPage } from 'next';
-import Menual from '../../components/menual/Menual';
+import Menual from '../../../components/menual/Menual';
 
-const TermsOfUse: NextPage = () => {
-  const TITLE = '이용약관';
-  const DESCRIPTION = '더블케이미디어의 이용약관에 대한 문서를 제공합니다.';
+const Agreement: NextPage = () => {
+  const TITLE = '개인정보 수집동의';
+  const DESCRIPTION = '더블케이미디어의 개인정보 수집동의에 대한 문서를 제공합니다.';
 
   return (
     <Menual title={TITLE} description={DESCRIPTION}>
-      <span className="head">이용약관</span>
+      <span className="head">개인정보 수집동의(추가해야됨)</span>
       <span className="body">
         제1조 목적
         <br />
@@ -265,4 +265,4 @@ const TermsOfUse: NextPage = () => {
   );
 };
 
-export default TermsOfUse;
+export default Agreement;

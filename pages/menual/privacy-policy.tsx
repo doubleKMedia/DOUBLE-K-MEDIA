@@ -1,6 +1,7 @@
+import { NextPage } from 'next';
 import Menual from '../../components/menual/Menual';
 
-const PrivacyPolicy = () => {
+const PrivacyPolicy: NextPage = () => {
   const TITLE = '개인정보 처리방침';
   const DESCRIPTION = '더블케이미디어의 개인정보 처리방침에 대한 문서를 제공합니다.';
 
