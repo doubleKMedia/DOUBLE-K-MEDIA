@@ -27,10 +27,10 @@ const SideListView = ({ listData }: { listData: listDataType }) => {
   return (
     <div className="view">
       <button onClick={() => sideButtonClick(true)}>
-        <Image src="/website/arrow.svg" width={100} height={200} />
+        <Image src="/website/arrow.svg" width={100} height={200} alt="left arrow" />
       </button>
       <button onClick={() => sideButtonClick(false)}>
-        <Image src="/website/arrow.svg" width={100} height={200} />
+        <Image src="/website/arrow.svg" width={100} height={200} alt="right arrow" />
       </button>
       <section style={{ '--viewNum': viewNumber } as React.CSSProperties}>
         {listData.map((data, i) => (
