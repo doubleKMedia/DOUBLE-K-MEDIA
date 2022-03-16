@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
-import LineListView from '../../components/website/LineListView';
-import WebsiteLayout from '../../components/website/WebsiteLayout';
-import lineListData from './sample/lineListData.json';
+import LineListView from '../../../components/website/LineListView';
+import WebsiteLayout from '../../../components/website/WebsiteLayout';
+import lineListData from './lineListData.json';
 
 const Sample: NextPage = () => {
   return (

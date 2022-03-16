@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
-import ScrollListView from '../../components/website/ScrollListView';
-import WebsiteLayout from '../../components/website/WebsiteLayout';
-import scrollListData from './event-landing/scrollListData.json';
+import ScrollListView from '../../../components/website/ScrollListView';
+import WebsiteLayout from '../../../components/website/WebsiteLayout';
+import scrollListData from './scrollListData.json';
 
 const EventLanding: NextPage = () => {
   return (

@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
-import ScrollListView from '../../components/website/ScrollListView';
-import SideListView from '../../components/website/SideListView';
-import WebsiteLayout from '../../components/website/WebsiteLayout';
-import sideListData from './homepage/sideListData.json';
-import scrollListData from './homepage/scrollListData.json';
+import ScrollListView from '../../../components/website/ScrollListView';
+import SideListView from '../../../components/website/SideListView';
+import WebsiteLayout from '../../../components/website/WebsiteLayout';
+import sideListData from './sideListData.json';
+import scrollListData from './scrollListData.json';
 
 const Homepage: NextPage = () => {
   return (
