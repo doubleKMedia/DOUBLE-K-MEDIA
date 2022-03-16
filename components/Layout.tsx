@@ -5,7 +5,7 @@ import Nav from './Navigator';
 
 const Layout = ({ children, title, description, mode }: { children: ReactNode; title: string; description: string; mode: 'dark' | 'light' }) => {
   return (
-    <div className={`layout`}>
+    <div className="layout">
       <Head>
         <title>{title} | 더블케이미디어</title>
         <meta name="description" content={description} />
@@ -25,7 +25,6 @@ const Layout = ({ children, title, description, mode }: { children: ReactNode; t
             display: flex;
             flex-direction: column;
             width: 100%;
-            height: 100vh;
             overflow-x: hidden;
           }
         `}
