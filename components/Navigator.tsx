@@ -152,7 +152,7 @@ const Nav = ({ mode }: { mode: 'dark' | 'light' }) => {
             justify-content: space-between;
             align-items: flex-start;
             gap: 50px;
-            width: 100%;
+            width: 100vw;
             padding: 50px 100px;
             transform: background-color 0.3s;
             z-index: 50;

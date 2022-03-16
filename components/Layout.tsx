@@ -26,6 +26,7 @@ const Layout = ({ children, title, description, mode }: { children: ReactNode; t
             flex-direction: column;
             width: 100%;
             height: 100vh;
+            overflow-x: hidden;
           }
         `}
       </style>
