@@ -21,6 +21,17 @@ export type inputValueType = {
 };
 
 const ProjectInquiry: NextPage = () => {
+  const EMAIL_LIST = [
+    { name: '직접 입력', host: '직접 입력' },
+    { name: '네이버', host: 'naver.com' },
+    { name: '야후', host: 'yahoo.com' },
+    { name: '구글', host: 'google.com' },
+    { name: '카카오', host: 'kakao.com' },
+  ];
+  const ACCEPT_EXTENSIONS = ['gif', 'jpg', 'png', 'pdf'];
+  const MANUFACTURING_FIELD = ['홈페이지', '쇼핑몰', '디자인', '이벤트 랜딩', '기타'];
+  const CAPACITY_LIMIT = 41943040; //바이트 단위 (40MB);
+
   const [inputValue, setInputValue] = useState<inputValueType>({
     companyName: '',
     contactPerson: '',
@@ -38,9 +49,8 @@ const ProjectInquiry: NextPage = () => {
   const [file, setFile] = useState<File>();
   const [lastCheck, setLastCheck] = useState<boolean>(false);
   const [isSending, setIsSending] = useState<boolean>(false);
-  const ACCEPT_EXTENSIONS = ['gif', 'jpg', 'png', 'pdf'];
-  const MANUFACTURING_FIELD = ['홈페이지', '쇼핑몰', '디자인', '이벤트 랜딩', '기타'];
-  const CAPACITY_LIMIT = 41943040; //바이트 단위 (40MB);
+  const [selectEmailIndex, setSelectEmailIndex] = useState<number>(0);
+  const [isOpenSelectEmailList, setIsOpenSelectEmailList] = useState<boolean>(false);
 
   const saveInputData = (saveData: inputValueType) => sessionStorage.setItem('inputValue', JSON.stringify(saveData));
 
@@ -68,7 +78,7 @@ const ProjectInquiry: NextPage = () => {
     form.append('data', JSON.stringify(inputValue));
 
     const response = await fetch(url, { method: 'POST', body: form });
-    console.log(response);
+
     if (response.ok) alert('신청이 완료되었습니다.\n빠른 시일내에 답변 드리도록 하겠습니다.');
     else alert('오류가 발생하였습니다.\n잠시 후 다시 시도해 주세요.');
     setIsSending(false);
@@ -115,6 +125,12 @@ const ProjectInquiry: NextPage = () => {
       setInputValue({ ...inputValue, ...object });
     },
     file: (e: FormEvent<HTMLInputElement>) => setFile(e.currentTarget.files?.item(0) ?? undefined),
+  };
+
+  const selectEmail = (i: number) => {
+    setSelectEmailIndex(i);
+    const e = { currentTarget: { value: i ? EMAIL_LIST[i].host : '' } };
+    inputCommonFunc(e, 'email', 1);
   };
 
   useEffect(() => {
@@ -199,15 +215,38 @@ const ProjectInquiry: NextPage = () => {
                   maxLength={50}
                 ></input>
                 @
-                <input
-                  onInput={input.emailLast}
-                  defaultValue={inputValue.email[1]}
-                  className="large"
-                  type="text"
-                  minLength={1}
-                  maxLength={50}
-                ></input>
-                <button>직접입력</button>
+                {selectEmailIndex ? (
+                  <input
+                    key={0}
+                    onChange={input.emailLast}
+                    value={EMAIL_LIST[selectEmailIndex].host}
+                    readOnly={true}
+                    className={`large ${selectEmailIndex ? 'disable' : ''}`}
+                    type="text"
+                    minLength={1}
+                    maxLength={50}
+                  ></input>
+                ) : (
+                  <input
+                    key={1}
+                    onInput={input.emailLast}
+                    defaultValue={inputValue.email[1]}
+                    className={`large ${selectEmailIndex ? 'disable' : ''}`}
+                    type="text"
+                    minLength={1}
+                    maxLength={50}
+                  ></input>
+                )}
+                <button onClick={() => setIsOpenSelectEmailList(!isOpenSelectEmailList)} className={`list ${isOpenSelectEmailList ? 'open' : ''}`}>
+                  {EMAIL_LIST[selectEmailIndex].name}
+                  <ul>
+                    {EMAIL_LIST.map((email, i) => (
+                      <li className={selectEmailIndex === i ? 'select' : ''} onClick={() => selectEmail(i)} key={i}>
+                        {email.name}
+                      </li>
+                    ))}
+                  </ul>
+                </button>
               </div>
             </div>
           </article>
@@ -542,7 +581,9 @@ const ProjectInquiry: NextPage = () => {
 
           input,
           textarea,
-          span.input-box {
+          span.input-box,
+          button.list,
+          button.list > ul {
             border: 1px solid #e3e3e3;
             background-color: #ececec;
             border-radius: 3px;
@@ -561,13 +602,18 @@ const ProjectInquiry: NextPage = () => {
             height: 40px;
           }
 
-          input.small {
+          input.small,
+          button.list {
             width: 120px;
             height: 40px;
           }
 
           input[type='file'] {
             display: none;
+          }
+
+          input.disable {
+            filter: brightness(1.04);
           }
 
           label {
@@ -609,6 +655,70 @@ const ProjectInquiry: NextPage = () => {
           .agreement-check > div > a {
             font-size: 12px;
             text-decoration: underline;
+          }
+
+          button.list {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-right: 15px;
+          }
+
+          button.list::before {
+            content: '';
+            position: absolute;
+            right: 10px;
+            width: 7px;
+            height: 7px;
+            border-bottom: 2px solid black;
+            border-right: 2px solid black;
+            box-sizing: border-box;
+            transform: rotate(225deg);
+            transition: transform 0.3s ease-in-out;
+          }
+
+          button.list.open::before {
+            transform: rotate(45deg);
+          }
+
+          button.list > ul {
+            position: absolute;
+            visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            top: calc(100% + 5px);
+            right: -1px;
+            width: 120px;
+            height: 100px;
+            box-sizing: border-box;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            overflow-y: scroll;
+            z-index: 1;
+          }
+
+          button.list.open > ul {
+            visibility: visible;
+          }
+
+          button.list > ul > li {
+            list-style: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 5px 0;
+            width: 100%;
+            font-size: 12px;
+            transition: background-color 0.3s;
+          }
+
+          button.list > ul > li:nth-last-child(1) {
+            border-bottom: none;
+          }
+
+          button.list > ul > li:hover,
+          button.list > ul > li.select {
+            background-color: rgb(220, 220, 220);
           }
 
           button.submit {
