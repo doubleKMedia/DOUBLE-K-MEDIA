@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import Menual from '../../../components/menual/Menual';
+import Menual from '../../components/menual/Menual';
 
 const Agreement: NextPage = () => {
   const TITLE = '개인정보 수집동의';

@@ -169,7 +169,7 @@ const ProjectInquiry: NextPage = () => {
           <div>
             <input className="checkbox" type="checkbox"></input>
             <span>위 사항에 동의하십니까?</span>
-            <Link href={'/website/project-inquiry/agreement'}>
+            <Link href={'/menual/agreement'}>
               <a target="_blank">전문보기</a>
             </Link>
           </div>
