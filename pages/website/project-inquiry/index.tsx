@@ -1,9 +1,131 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FormEvent, useEffect, useState } from 'react';
 import WebsiteLayout from '../../../components/website/WebsiteLayout';
+import { fileExtensionChange, onlyNumberInput } from '../../../utils/validation';
+
+export type inputValueType = {
+  companyName: string;
+  contactPerson: string;
+  rank: string;
+  contact: string;
+  email: [string, string];
+  manufacturingField: string[];
+  numberOfPagesProduced: string;
+  productionBudget: string;
+  retentionWebsiteAddress: string;
+  referenceSiteAddress: [string, string, string];
+  inquiriesAndRequirements: string;
+  preventionOfAutomaticRegistration: string;
+};
 
 const ProjectInquiry: NextPage = () => {
+  const [inputValue, setInputValue] = useState<inputValueType>({
+    companyName: '',
+    contactPerson: '',
+    rank: '',
+    contact: '',
+    email: ['', ''],
+    manufacturingField: [],
+    numberOfPagesProduced: '',
+    productionBudget: '',
+    retentionWebsiteAddress: '',
+    referenceSiteAddress: ['', '', ''],
+    inquiriesAndRequirements: '',
+    preventionOfAutomaticRegistration: '',
+  });
+  const [file, setFile] = useState<File>();
+  const [lastCheck, setLastCheck] = useState<boolean>(false);
+  const [isSending, setIsSending] = useState<boolean>(false);
+  const ACCEPT_EXTENSIONS = ['gif', 'jpg', 'png', 'pdf'];
+  const MANUFACTURING_FIELD = ['홈페이지', '쇼핑몰', '디자인', '이벤트 랜딩', '기타'];
+  const CAPACITY_LIMIT = 41943040; //바이트 단위 (40MB);
+
+  const saveInputData = (saveData: inputValueType) => sessionStorage.setItem('inputValue', JSON.stringify(saveData));
+
+  const inputValueValidation = (successCallback: Function) => {
+    if (isSending) alert('현재 요청 중 입니다.\n잠시만 기다려주세요.');
+    const { companyName, contactPerson, rank, contact, email, inquiriesAndRequirements, preventionOfAutomaticRegistration } = inputValue;
+
+    if (!companyName) alert('업체명을 작성해주세요.');
+    else if (!contactPerson) alert('담당자명을 작성해주세요.');
+    else if (!rank) alert('직급을 작성해주세요.');
+    else if (!contact) alert('연락처를 작성해주세요.');
+    else if (!email[0] || !email[1]) alert('이메일을 작성해주세요.');
+    else if (!inquiriesAndRequirements) alert('문의 및 요구사항을 작성해주세요.');
+    else if (!preventionOfAutomaticRegistration) alert('자동등록방지를 작성해주세요.');
+    else if (!lastCheck) alert('개인정보 수집 및 이용 동의를 체크해주세요.');
+    else successCallback();
+  };
+
+  const sendDataToServer = async () => {
+    setIsSending(true);
+    const url = '/api/hello';
+    const form = new FormData();
+
+    if (file) form.append('file', file);
+    form.append('data', JSON.stringify(inputValue));
+
+    const response = await fetch(url, { method: 'POST', body: form });
+    console.log(response);
+    if (response.ok) alert('신청이 완료되었습니다.\n빠른 시일내에 답변 드리도록 하겠습니다.');
+    else alert('오류가 발생하였습니다.\n잠시 후 다시 시도해 주세요.');
+    setIsSending(false);
+    sessionStorage.setItem('inputValue', 'undefined');
+    window.location.href = '/';
+  };
+
+  const inputCommonFunc = (e: any, objectKey: keyof inputValueType, index = 0) => {
+    let value;
+    if (['email', 'manufacturingField', 'referenceSiteAddress'].includes(objectKey)) {
+      const object = inputValue[objectKey] as string[] | [string, string] | [string, string, string];
+      object[index] = e.currentTarget.value;
+      value = { [objectKey]: object };
+    } else value = { [objectKey]: e.currentTarget.value };
+    setInputValue({ ...inputValue, ...value });
+    saveInputData({ ...inputValue, ...value });
+  };
+
+  const input = {
+    companyName: (e: FormEvent<HTMLInputElement>) => inputCommonFunc(e, 'companyName'),
+    contactPerson: (e: FormEvent<HTMLInputElement>) => inputCommonFunc(e, 'contactPerson'),
+    rank: (e: FormEvent<HTMLInputElement>) => inputCommonFunc(e, 'rank'),
+    contact: (e: FormEvent<HTMLInputElement>) => inputCommonFunc(e, 'contact'),
+    emailFront: (e: FormEvent<HTMLInputElement>) => inputCommonFunc(e, 'email', 0),
+    emailLast: (e: FormEvent<HTMLInputElement>) => inputCommonFunc(e, 'email', 1),
+    manufacturingField: (e: FormEvent<HTMLInputElement>) => {
+      const object = { manufacturingField: [...inputValue.manufacturingField] };
+
+      if (e.currentTarget.checked) object.manufacturingField.push(e.currentTarget.value);
+      else object.manufacturingField.filter((v) => v !== e.currentTarget.value);
+
+      setInputValue({ ...inputValue, ...object });
+      saveInputData({ ...inputValue, ...object });
+    },
+    numberOfPagesProduced: (e: FormEvent<HTMLInputElement>) => inputCommonFunc(e, 'numberOfPagesProduced'),
+    productionBudget: (e: FormEvent<HTMLInputElement>) => inputCommonFunc(e, 'productionBudget'),
+    retentionWebsiteAddress: (e: FormEvent<HTMLInputElement>) => inputCommonFunc(e, 'retentionWebsiteAddress'),
+    referenceSiteAddressFirst: (e: FormEvent<HTMLInputElement>) => inputCommonFunc(e, 'referenceSiteAddress', 0),
+    referenceSiteAddressSecond: (e: FormEvent<HTMLInputElement>) => inputCommonFunc(e, 'referenceSiteAddress', 1),
+    referenceSiteAddressThird: (e: FormEvent<HTMLInputElement>) => inputCommonFunc(e, 'referenceSiteAddress', 2),
+    inquiriesAndRequirements: (e: FormEvent<HTMLTextAreaElement>) => inputCommonFunc(e, 'inquiriesAndRequirements'),
+    preventionOfAutomaticRegistration: (e: FormEvent<HTMLInputElement>) => {
+      const object = { preventionOfAutomaticRegistration: e.currentTarget.value };
+      setInputValue({ ...inputValue, ...object });
+    },
+    file: (e: FormEvent<HTMLInputElement>) => setFile(e.currentTarget.files?.item(0) ?? undefined),
+  };
+
+  useEffect(() => {
+    const saveData = sessionStorage.getItem('inputValue') ?? 'undefined';
+    const MENT = '이전에 작성하던 데이터가 있습니다.\n불러오겠습니까?';
+    if (saveData !== 'undefined') {
+      if (confirm(MENT)) setInputValue({ ...inputValue, ...JSON.parse(saveData) });
+      else sessionStorage.setItem('inputValue', 'undefined');
+    }
+  }, []);
+
   return (
     <WebsiteLayout>
       <div className="project-inquiry">
@@ -18,19 +140,33 @@ const ProjectInquiry: NextPage = () => {
                 <span className="title">
                   업체명<strong>*</strong>
                 </span>
-                <input className="large" type="text" minLength={1} maxLength={50}></input>
+                <input
+                  onInput={input.companyName}
+                  defaultValue={inputValue.companyName}
+                  className="large"
+                  type="text"
+                  minLength={1}
+                  maxLength={50}
+                ></input>
               </div>
               <div>
                 <span className="title">
                   담당자명<strong>*</strong>
                 </span>
-                <input className="small" type="text" minLength={1} maxLength={20}></input>
+                <input
+                  onInput={input.contactPerson}
+                  defaultValue={inputValue.contactPerson}
+                  className="small"
+                  type="text"
+                  minLength={1}
+                  maxLength={20}
+                ></input>
               </div>
               <div>
                 <span className="title">
                   직급<strong>*</strong>
                 </span>
-                <input className="small" type="text" minLength={1} maxLength={20}></input>
+                <input onInput={input.rank} defaultValue={inputValue.rank} className="small" type="text" minLength={1} maxLength={20}></input>
               </div>
             </div>
             <div className="line">
@@ -38,7 +174,15 @@ const ProjectInquiry: NextPage = () => {
                 <span className="title">
                   연락처<strong>*</strong>
                 </span>
-                <input className="large" type="text" minLength={1} maxLength={11} placeholder='"-" 를 빼고 입력해주세요.'></input>
+                <input
+                  onInput={(e) => onlyNumberInput(e, input.contact)}
+                  defaultValue={inputValue.contact}
+                  className="large"
+                  type="text"
+                  minLength={1}
+                  maxLength={11}
+                  placeholder='"-" 를 제외하고 입력해주세요.'
+                ></input>
               </div>
             </div>
             <div className="line">
@@ -46,8 +190,23 @@ const ProjectInquiry: NextPage = () => {
                 <span className="title">
                   이메일<strong>*</strong>
                 </span>
-                <input className="large" type="text" minLength={1} maxLength={50}></input>@
-                <input className="large" type="text" minLength={1} maxLength={50}></input>
+                <input
+                  onInput={input.emailFront}
+                  defaultValue={inputValue.email[0]}
+                  className="large"
+                  type="text"
+                  minLength={1}
+                  maxLength={50}
+                ></input>
+                @
+                <input
+                  onInput={input.emailLast}
+                  defaultValue={inputValue.email[1]}
+                  className="large"
+                  type="text"
+                  minLength={1}
+                  maxLength={50}
+                ></input>
                 <button>직접입력</button>
               </div>
             </div>
@@ -59,49 +218,82 @@ const ProjectInquiry: NextPage = () => {
             <div className="line">
               <div>
                 <span className="title align-center">제작분야</span>
-                <div>
-                  <input type="checkbox"></input>
-                  <span className="check-box">홈페이지</span>
-                </div>
-                <div>
-                  <input type="checkbox"></input>
-                  <span className="check-box">쇼핑몰</span>
-                </div>
-                <div>
-                  <input type="checkbox"></input>
-                  <span className="check-box">디자인</span>
-                </div>
-                <div>
-                  <input type="checkbox"></input>
-                  <span className="check-box">이벤트 랜딩</span>
-                </div>
-                <div>
-                  <input type="checkbox"></input>
-                  <span className="check-box">기타</span>
-                </div>
+                {MANUFACTURING_FIELD.map((value, i) => (
+                  <div key={i}>
+                    <input
+                      onChange={input.manufacturingField}
+                      checked={inputValue.manufacturingField.findIndex((v) => v === value) !== -1}
+                      type="checkbox"
+                      value={value}
+                    ></input>
+                    <span className="check-box">{value}</span>
+                  </div>
+                ))}
               </div>
             </div>
             <div className="line">
               <div>
                 <span className="title align-center">제작 페이지 수</span>
-                <input className="large" type="text" minLength={1} maxLength={50}></input>
+                <input
+                  onInput={input.numberOfPagesProduced}
+                  defaultValue={inputValue.numberOfPagesProduced}
+                  className="large"
+                  type="text"
+                  minLength={1}
+                  maxLength={50}
+                ></input>
               </div>
               <div>
                 <span className="title align-center">제작 예산</span>
-                <input className="large" type="text" minLength={1} maxLength={50}></input>
+                <input
+                  onInput={input.productionBudget}
+                  defaultValue={inputValue.productionBudget}
+                  className="large"
+                  type="text"
+                  minLength={1}
+                  maxLength={50}
+                ></input>
               </div>
             </div>
             <div className="line">
               <div>
                 <span className="title align-center">보유 홈페이지 주소</span>
-                <input className="large" type="text" minLength={1} maxLength={100}></input>
+                <input
+                  onInput={input.retentionWebsiteAddress}
+                  defaultValue={inputValue.retentionWebsiteAddress}
+                  className="large"
+                  type="text"
+                  minLength={1}
+                  maxLength={100}
+                ></input>
               </div>
               <div className="align-flex-start">
                 <span className="title align-center padding-top">참고사이트 주소</span>
                 <div className="col">
-                  <input className="large" type="text" minLength={1} maxLength={100}></input>
-                  <input className="large" type="text" minLength={1} maxLength={100}></input>
-                  <input className="large" type="text" minLength={1} maxLength={100}></input>
+                  <input
+                    onInput={input.referenceSiteAddressFirst}
+                    defaultValue={inputValue.referenceSiteAddress[0]}
+                    className="large"
+                    type="text"
+                    minLength={1}
+                    maxLength={100}
+                  ></input>
+                  <input
+                    onInput={input.referenceSiteAddressSecond}
+                    defaultValue={inputValue.referenceSiteAddress[1]}
+                    className="large"
+                    type="text"
+                    minLength={1}
+                    maxLength={100}
+                  ></input>
+                  <input
+                    onInput={input.referenceSiteAddressThird}
+                    defaultValue={inputValue.referenceSiteAddress[2]}
+                    className="large"
+                    type="text"
+                    minLength={1}
+                    maxLength={100}
+                  ></input>
                 </div>
               </div>
             </div>
@@ -115,7 +307,14 @@ const ProjectInquiry: NextPage = () => {
                 <span className="title align-center">
                   문의 및 요구사항<strong>*</strong>
                 </span>
-                <textarea cols={100} rows={10} minLength={1} maxLength={5000}></textarea>
+                <textarea
+                  defaultValue={inputValue.inquiriesAndRequirements}
+                  onInput={input.inquiriesAndRequirements}
+                  cols={100}
+                  rows={10}
+                  minLength={1}
+                  maxLength={5000}
+                ></textarea>
               </div>
             </div>
             <div className="line">
@@ -126,7 +325,7 @@ const ProjectInquiry: NextPage = () => {
                 <div className="col left">
                   <div className="align-left gap">
                     <Image src="/null.png" width={100} height={40} objectFit="cover" alt="자동등록방지 이미지" />
-                    <input className="small" type="text" minLength={1} maxLength={10}></input>
+                    <input onInput={input.preventionOfAutomaticRegistration} className="small" type="text" minLength={1} maxLength={10}></input>
                   </div>
                   <span>(글자가 잘 안보이는 경우, 클릭하시면 새로운 글자가 나옵니다.)</span>
                 </div>
@@ -136,9 +335,16 @@ const ProjectInquiry: NextPage = () => {
               <div>
                 <span className="title align-center">파일첨부</span>
                 <div>
-                  <span className="input-box">첨부된 파일 없음</span>
+                  <span onClick={() => setFile(undefined)} className="input-box">
+                    {file ? file.name : '첨부파일 없음'}
+                  </span>
                   <label htmlFor="file">파일 불러오기</label>
-                  <input id="file" type="file"></input>
+                  <input
+                    onChange={(e) => fileExtensionChange(e, ACCEPT_EXTENSIONS, CAPACITY_LIMIT, input.file)}
+                    id="file"
+                    type="file"
+                    accept={ACCEPT_EXTENSIONS.map((e) => `.${e}`).join(', ')}
+                  ></input>
                 </div>
               </div>
             </div>
@@ -167,14 +373,16 @@ const ProjectInquiry: NextPage = () => {
             <br />
           </span>
           <div>
-            <input className="checkbox" type="checkbox"></input>
+            <input onChange={(e) => setLastCheck(e.currentTarget.checked)} className="checkbox" type="checkbox"></input>
             <span>위 사항에 동의하십니까?</span>
             <Link href={'/menual/agreement'}>
               <a target="_blank">전문보기</a>
             </Link>
           </div>
         </div>
-        <button className="submit">상담 신청하기</button>
+        <button onClick={() => inputValueValidation(sendDataToServer)} className={`submit ${isSending ? 'sending' : ''}`}>
+          {isSending ? '요청중...' : '상담 신청하기'}
+        </button>
       </div>
 
       <style jsx>
@@ -311,6 +519,27 @@ const ProjectInquiry: NextPage = () => {
             line-height: 0;
           }
 
+          span.input-box {
+            position: relative;
+            padding: 10px;
+            cursor: pointer;
+          }
+
+          span.input-box::after {
+            content: 'x';
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            font-weight: bolder;
+            top: -10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+          }
+
+          span.input-box:hover::after {
+            opacity: 1;
+          }
+
           input,
           textarea,
           span.input-box {
@@ -327,8 +556,7 @@ const ProjectInquiry: NextPage = () => {
             text-align: center;
           }
 
-          input.large,
-          span.input-box {
+          input.large {
             width: 200px;
             height: 40px;
           }
