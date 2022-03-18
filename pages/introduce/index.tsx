@@ -111,6 +111,7 @@ const Introduce: NextPage<IntroducePropsType> = (Props: IntroducePropsType) => {
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
             gap: 10px;
           }
 
@@ -198,6 +199,7 @@ const Introduce: NextPage<IntroducePropsType> = (Props: IntroducePropsType) => {
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
             gap: 5px;
           }
 
@@ -215,6 +217,7 @@ const Introduce: NextPage<IntroducePropsType> = (Props: IntroducePropsType) => {
             flex-direction: row-reverse;
             justify-content: center;
             align-items: center;
+            width: 700px;
             transform: translateY(200px);
           }
 
@@ -304,6 +307,111 @@ const Introduce: NextPage<IntroducePropsType> = (Props: IntroducePropsType) => {
 
           .transportation > div > span:nth-child(2) {
             font-size: 14px;
+          }
+
+          @media screen and (max-width: 1050px) {
+            div.company {
+              transform: scale(0.8);
+              height: 300px;
+            }
+
+            div.vision {
+              padding: 20px 0 100px 0;
+            }
+
+            div.vision::before,
+            div.vision > * {
+              transform: scale(0.8);
+            }
+
+            div.vision > .order {
+              transform: translateY(150px) scale(0.8);
+            }
+          }
+
+          @media screen and (max-width: 750px) {
+            .introduce {
+              gap: 50px;
+            }
+
+            div.company,
+            div.vision::before,
+            div.vision > * {
+              transform: scale(0.6);
+            }
+
+            div.vision > .order {
+              transform: translateY(100px) scale(0.6);
+            }
+
+            .info {
+              flex-direction: column;
+            }
+          }
+
+          @media screen and (max-width: 550px) {
+            .introduce {
+              gap: 0;
+            }
+
+            div.company {
+              transform: scale(0.4);
+              height: 250px;
+            }
+
+            div.vision {
+              padding: 0px 0 25px 0;
+              height: 300px;
+            }
+
+            div.vision::before,
+            div.vision > * {
+              transform: scale(0.4);
+            }
+
+            div.vision > .order {
+              transform: translateY(80px) scale(0.4);
+            }
+
+            div.location {
+              height: auto;
+              padding-top: 50px;
+            }
+
+            div.transportation > div {
+              flex-direction: column;
+              gap: 10px;
+            }
+          }
+
+          @media screen and (max-width: 400px) {
+            div.company {
+              transform: translateX(50px) scale(0.5);
+              height: 500px;
+            }
+
+            div.company::before {
+              right: 97%;
+            }
+
+            .cards {
+              flex-direction: column;
+              justify-content: center;
+              gap: 10px;
+            }
+
+            .download {
+              right: 110%;
+            }
+
+            div.map {
+              height: 80vw;
+            }
+
+            div.map,
+            div.transportation > div {
+              width: 80vw;
+            }
           }
         `}
       </style>
