@@ -40,6 +40,7 @@ const ServiceCard = (props: ServiceCardPropsType) => {
             justify-content: center;
             align-items: center;
             width: 300px;
+            height: 400px;
             border: 0.5px solid #6e6e6e;
             border-radius: 20px;
             overflow: hidden;
@@ -92,6 +93,20 @@ const ServiceCard = (props: ServiceCardPropsType) => {
 
           .contents * {
             word-break: keep-all;
+          }
+
+          @media screen and (max-width: 350px) {
+            .service-card {
+              margin: -20px 0;
+              transform: scale(0.8);
+            }
+          }
+
+          @media screen and (max-width: 300px) {
+            .service-card {
+              margin: -60px 0;
+              transform: scale(0.6);
+            }
           }
         `}
       </style>

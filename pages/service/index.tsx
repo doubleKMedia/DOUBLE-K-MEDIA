@@ -142,6 +142,7 @@ const Service: NextPage = () => {
           .head > span:nth-child(2) {
             font-size: 15px;
             color: #888888;
+            text-align: center;
           }
 
           .cards {
@@ -171,6 +172,13 @@ const Service: NextPage = () => {
 
           .cards .center {
             align-items: center;
+          }
+
+          @media screen and (max-width: 350px) {
+            div.cards {
+              gap: 0;
+              padding: 0;
+            }
           }
         `}
       </style>
