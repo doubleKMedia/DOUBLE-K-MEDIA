@@ -87,6 +87,76 @@ const OrderCard = ({ children, src, direction, number, title, isLast }: OrderCar
           .order-card.right .contents {
             text-align: right;
           }
+
+          @media screen and (max-width: 1050px) {
+            .order-card,
+            .order-card.right {
+              flex-direction: column;
+              align-items: center;
+            }
+
+            .card,
+            .order-card.right > .card {
+              margin: 0;
+            }
+
+            .number {
+              position: absolute;
+              transform: translate(-160px, 10px);
+              padding-bottom: 10px;
+            }
+
+            .order-card.right .number {
+              transform: translate(160px, 10px);
+            }
+
+            .order-card.not-last > .number::after {
+              display: none;
+            }
+
+            .explanation {
+              width: 400px;
+              height: 300px;
+              gap: 10px;
+              padding-top: 50px;
+              transform: none;
+            }
+
+            @media screen and (max-width: 500px) {
+              .number {
+                font-size: 5vw;
+                padding: 0;
+                padding-left: 20px;
+                transform: translate(-34vw, 1vw);
+              }
+
+              .order-card.right .number {
+                padding: 0;
+                padding-right: 20px;
+                transform: translate(34vw, 1vw);
+              }
+
+              .card {
+                width: 80vw;
+                height: 50vw;
+              }
+
+              .explanation {
+                width: 80vw;
+                height: 60vw;
+                padding-top: 10vw;
+              }
+
+              span.title {
+                font-size: 5vw;
+              }
+
+              span.contents {
+                font-size: 3vw;
+                line-height: 5vw;
+              }
+            }
+          }
         `}
       </style>
     </article>

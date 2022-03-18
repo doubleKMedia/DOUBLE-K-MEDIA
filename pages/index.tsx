@@ -261,6 +261,64 @@ const Home: NextPage = () => {
             height: 100%;
             filter: brightness(0.6);
           }
+
+          @media screen and (max-width: 1050px) {
+            div.intro {
+              flex-direction: column;
+            }
+          }
+
+          @media screen and (max-width: 920px) {
+            span.ment {
+              font-size: min(8vw, 70px);
+              bottom: 25%;
+            }
+
+            div.intro-ment {
+              align-items: center;
+            }
+
+            span.top {
+              text-align: center;
+              white-space: normal !important;
+              font-size: max(2.5vw, 20px);
+              word-break: keep-all;
+              padding: 0 5vw;
+            }
+
+            span.body {
+              text-align: center;
+              white-space: normal !important;
+              padding: 0 5vw;
+            }
+
+            span.title-ment,
+            span.skills-ment {
+              font-size: max(4vw, 20px);
+              padding: 0 20px;
+              text-align: center;
+            }
+
+            div.skill-imgs {
+              flex-direction: column;
+              padding: 0 20px;
+            }
+          }
+
+          @media screen and (max-width: 400px) {
+            span.title-ment {
+              flex-direction: column;
+            }
+
+            div.skill-imgs {
+              gap: 10vw;
+            }
+
+            div.skill {
+              width: 62.5vw;
+              height: 37.5vw;
+            }
+          }
         `}
       </style>
     </Layout>
