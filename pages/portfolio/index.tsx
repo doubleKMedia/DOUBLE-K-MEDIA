@@ -41,6 +41,7 @@ const Portfolio: NextPage = () => {
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
             gap: 10px;
           }
 
@@ -71,6 +72,19 @@ const Portfolio: NextPage = () => {
             column-gap: 40px;
             row-gap: 60px;
             grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+          }
+
+          @media screen and (max-width: 550px) {
+            div.list {
+              padding-left: 0;
+              padding-right: 0;
+            }
+          }
+
+          @media screen and (max-width: 350px) {
+            .list > ul {
+              grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            }
           }
         `}
       </style>

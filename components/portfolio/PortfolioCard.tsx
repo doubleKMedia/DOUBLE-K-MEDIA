@@ -83,6 +83,20 @@ const PortfolioCard = ({ info }: { info: infoType }) => {
             width: 100%;
             height: 100%;
           }
+
+          @media screen and (max-width: 350px) {
+            li {
+              transform: scale(0.8);
+              margin: -50px;
+            }
+          }
+
+          @media screen and (max-width: 300px) {
+            li {
+              transform: scale(0.6);
+              margin: -100px;
+            }
+          }
         `}
       </style>
     </li>
