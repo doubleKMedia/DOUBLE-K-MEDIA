@@ -56,11 +56,10 @@ const ProjectInquiry: NextPage = () => {
 
   const inputValueValidation = (successCallback: Function) => {
     if (isSending) alert('현재 요청 중 입니다.\n잠시만 기다려주세요.');
-    const { companyName, contactPerson, rank, contact, email, inquiriesAndRequirements, preventionOfAutomaticRegistration } = inputValue;
+    const { companyName, contactPerson, contact, email, inquiriesAndRequirements, preventionOfAutomaticRegistration } = inputValue;
 
     if (!companyName) alert('업체명을 작성해주세요.');
     else if (!contactPerson) alert('담당자명을 작성해주세요.');
-    else if (!rank) alert('직급을 작성해주세요.');
     else if (!contact) alert('연락처를 작성해주세요.');
     else if (!email[0] || !email[1]) alert('이메일을 작성해주세요.');
     else if (!inquiriesAndRequirements) alert('문의 및 요구사항을 작성해주세요.');
@@ -71,7 +70,7 @@ const ProjectInquiry: NextPage = () => {
 
   const sendDataToServer = async () => {
     setIsSending(true);
-    const url = '/api/hello';
+    const url = '/api/hello'; //변경예정
     const form = new FormData();
 
     if (file) form.append('file', file);
@@ -81,6 +80,7 @@ const ProjectInquiry: NextPage = () => {
 
     if (response.ok) alert('신청이 완료되었습니다.\n빠른 시일내에 답변 드리도록 하겠습니다.');
     else alert('오류가 발생하였습니다.\n잠시 후 다시 시도해 주세요.');
+
     setIsSending(false);
     sessionStorage.setItem('inputValue', 'undefined');
     window.location.href = '/';
@@ -179,9 +179,7 @@ const ProjectInquiry: NextPage = () => {
                 ></input>
               </div>
               <div>
-                <span className="title">
-                  직급<strong>*</strong>
-                </span>
+                <span className="title">직급</span>
                 <input onInput={input.rank} defaultValue={inputValue.rank} className="small" type="text" minLength={1} maxLength={20}></input>
               </div>
             </div>
