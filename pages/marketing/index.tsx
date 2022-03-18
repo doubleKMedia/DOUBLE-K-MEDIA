@@ -1,10 +1,88 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
+import { FormEvent, useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
+import { onlyNumberInput } from '../../utils/validation';
+
+type inputValueType = {
+  companyName: string;
+  contactPerson: string;
+  contact: string;
+  email: string;
+  marketingKPI: string;
+  advertisingBudget: string;
+  inquiriesAndRequirements: string;
+};
 
 const Marketing: NextPage = () => {
   const TITLE = 'Marketing';
   const DESCRIPTION = '더블케이미디어에게 마케팅 견적에 대해 문의합니다.';
+  const MARKETING_KPI = ['광고 KPI를 선택해주세요.', '브랜딩', '회원가입', '매출확대', 'DB증대', '기타'];
+  const ADVERTISING_BUDGET = ['광고 예산을 선택해주세요.', '50만원 이하', '50만원', '100만원', '200만원', '500만원', '1000만원 이상'];
+
+  const [inputValue, setInputValue] = useState<inputValueType>({
+    companyName: '',
+    contactPerson: '',
+    contact: '',
+    email: '',
+    marketingKPI: '',
+    advertisingBudget: '',
+    inquiriesAndRequirements: '',
+  });
+  const [lastCheck, setLastCheck] = useState<boolean>(false);
+  const [marketingKPIIndex, setMarketingKPIIndex] = useState<number>(0);
+  const [isMarketingKPIListOpen, setIsMarketingKPIListOpen] = useState<boolean>(false);
+  const [advertisingBudgetIndex, setAdvertisingBudgetIndex] = useState<number>(0);
+  const [isAdvertisingBudgetListOpen, setIsAdvertisingBudgetListOpen] = useState<boolean>(false);
+  const [isSending, setIsSending] = useState<boolean>(false);
+
+  const changeInput = (value: string, key: keyof inputValueType) => {
+    const newValue = { ...inputValue, ...{ [key]: value } };
+    setInputValue(newValue);
+    sessionStorage.setItem('marketingInputValue', JSON.stringify(newValue));
+  };
+
+  const inputValueValidation = (successCallback: Function) => {
+    if (isSending) alert('현재 요청 중 입니다.\n잠시만 기다려주세요.');
+    const { companyName, contactPerson, contact, email } = inputValue;
+
+    if (!companyName) alert('업체명을 작성해주세요.');
+    else if (!contactPerson) alert('담당자명을 작성해주세요.');
+    else if (!contact) alert('연락처를 작성해주세요.');
+    else if (!email) alert('이메일을 작성해주세요.');
+    else if (!lastCheck) alert('개인정보 수집 및 이용 동의를 체크해주세요.');
+    else successCallback();
+  };
+
+  const sendDataToServer = async () => {
+    setIsSending(true);
+    const url = '/api/hello'; //변경예정
+    const form = new FormData();
+
+    form.append('data', JSON.stringify(inputValue));
+
+    const response = await fetch(url, { method: 'POST', body: form });
+
+    if (response.ok) alert('신청이 완료되었습니다.\n빠른 시일내에 답변 드리도록 하겠습니다.');
+    else alert('오류가 발생하였습니다.\n잠시 후 다시 시도해 주세요.');
+
+    setIsSending(false);
+    sessionStorage.setItem('marketingInputValue', 'undefined');
+    window.location.href = '/';
+  };
+
+  useEffect(() => {
+    const saveData = sessionStorage.getItem('marketingInputValue') ?? 'undefined';
+    const MENT = '이전에 작성하던 데이터가 있습니다.\n불러오겠습니까?';
+    if (saveData !== 'undefined') {
+      if (confirm(MENT)) {
+        const parsingData: inputValueType = JSON.parse(saveData);
+        setInputValue(parsingData);
+        setMarketingKPIIndex(MARKETING_KPI.findIndex((v) => v === parsingData.marketingKPI));
+        setAdvertisingBudgetIndex(ADVERTISING_BUDGET.findIndex((v) => v === parsingData.advertisingBudget));
+      } else sessionStorage.setItem('marketingInputValue', 'undefined');
+    }
+  }, []);
 
   return (
     <Layout title={TITLE} description={DESCRIPTION} mode="dark">
@@ -32,23 +110,49 @@ const Marketing: NextPage = () => {
                   <span>
                     업체명 <strong>*</strong>
                   </span>
-                  <input type="text" minLength={1} maxLength={50}></input>
+                  <input
+                    onInput={(e) => changeInput(e.currentTarget.value, 'companyName')}
+                    defaultValue={inputValue.companyName}
+                    type="text"
+                    minLength={1}
+                    maxLength={50}
+                  ></input>
                 </div>
                 <div className="input">
-                  <span>담당자 성함/직책</span>
-                  <input type="text" minLength={1} maxLength={20}></input>
+                  <span>
+                    담당자 성함<strong>*</strong> (직책)
+                  </span>
+                  <input
+                    onInput={(e) => changeInput(e.currentTarget.value, 'contactPerson')}
+                    defaultValue={inputValue.contactPerson}
+                    type="text"
+                    minLength={1}
+                    maxLength={20}
+                  ></input>
                 </div>
                 <div className="input">
                   <span>
                     연락처 <strong>*</strong>
                   </span>
-                  <input type="text" minLength={1} maxLength={20}></input>
+                  <input
+                    onInput={(e) => changeInput(e.currentTarget.value, 'contact')}
+                    defaultValue={inputValue.contact}
+                    type="text"
+                    minLength={1}
+                    maxLength={20}
+                  ></input>
                 </div>
                 <div className="input">
                   <span>
                     이메일 <strong>*</strong>
                   </span>
-                  <input type="text" minLength={1} maxLength={100}></input>
+                  <input
+                    onInput={(e) => changeInput(e.currentTarget.value, 'email')}
+                    defaultValue={inputValue.email}
+                    type="text"
+                    minLength={1}
+                    maxLength={100}
+                  ></input>
                 </div>
               </div>
             </div>
@@ -60,31 +164,74 @@ const Marketing: NextPage = () => {
               <div className="input-box">
                 <div className="input">
                   <span>마케팅 KPI</span>
-                  <div className="select">
-                    <button>광고 KPI를 선택해주세요.</button>
-                  </div>
+                  <button
+                    onClick={() => setIsMarketingKPIListOpen(!isMarketingKPIListOpen)}
+                    className={`list up ${isMarketingKPIListOpen ? 'open' : ''}`}
+                  >
+                    {MARKETING_KPI[marketingKPIIndex]}
+                    <ul>
+                      {MARKETING_KPI.map((m, i) => (
+                        <li
+                          className={marketingKPIIndex === i ? 'select' : ''}
+                          onClick={() => {
+                            setMarketingKPIIndex(i);
+                            changeInput(MARKETING_KPI[i], 'marketingKPI');
+                          }}
+                          key={i}
+                        >
+                          {m}
+                        </li>
+                      ))}
+                    </ul>
+                  </button>
                 </div>
                 <div className="input">
                   <span>광고예산</span>
-                  <div className="select">
-                    <button>광고 예산을 선택해주세요.</button>
-                  </div>
+                  <button
+                    onClick={() => setIsAdvertisingBudgetListOpen(!isAdvertisingBudgetListOpen)}
+                    className={`list down ${isAdvertisingBudgetListOpen ? 'open' : ''}`}
+                  >
+                    {ADVERTISING_BUDGET[advertisingBudgetIndex]}
+                    <ul>
+                      {ADVERTISING_BUDGET.map((a, i) => (
+                        <li
+                          className={advertisingBudgetIndex === i ? 'select' : ''}
+                          onClick={() => {
+                            setAdvertisingBudgetIndex(i);
+                            changeInput(ADVERTISING_BUDGET[i], 'advertisingBudget');
+                          }}
+                          key={i}
+                        >
+                          {a}
+                        </li>
+                      ))}
+                    </ul>
+                  </button>
                 </div>
                 <div className="input">
                   <span>요청사항</span>
-                  <textarea cols={30} rows={20} minLength={1} maxLength={5000}></textarea>
+                  <textarea
+                    onInput={(e) => changeInput(e.currentTarget.value, 'inquiriesAndRequirements')}
+                    defaultValue={inputValue.inquiriesAndRequirements}
+                    cols={30}
+                    rows={20}
+                    minLength={1}
+                    maxLength={5000}
+                  ></textarea>
                 </div>
               </div>
             </div>
             <div className="col">
               <div className="agreement">
-                <input type="checkbox"></input>
+                <input onChange={(e) => setLastCheck(e.currentTarget.checked)} type="checkbox"></input>
                 <span>개인정보 수집 및 이용에 동의합니다.</span>
                 <Link href={'/menual/agreement'}>
                   <a target="_blank">[전문보기]</a>
                 </Link>
               </div>
-              <button className="submit">맞춤제안서 요청하기</button>
+              <button onClick={() => inputValueValidation(sendDataToServer)} className="submit">
+                맞춤제안서 요청하기
+              </button>
             </div>
           </div>
         </div>
@@ -207,7 +354,8 @@ const Marketing: NextPage = () => {
           }
 
           input[type='text'],
-          div.select,
+          button.list,
+          button.list > ul,
           textarea {
             width: 300px;
             border: 1px solid #cccccc;
@@ -215,7 +363,7 @@ const Marketing: NextPage = () => {
           }
 
           input[type='text'],
-          div.select {
+          button.list {
             height: 40px;
           }
 
@@ -226,6 +374,70 @@ const Marketing: NextPage = () => {
           textarea {
             padding: 10px;
             resize: vertical;
+          }
+
+          button.list {
+            position: relative;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            text-align: left;
+            padding: 0 20px;
+          }
+
+          button.list.up {
+            z-index: 2;
+          }
+
+          button.list.down {
+            z-index: 1;
+          }
+
+          button.list::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-top: 2px solid #6cc26c;
+            border-right: 2px solid #6cc26c;
+            right: 20px;
+            box-sizing: border-box;
+            z-index: 1;
+            transform: rotate(-45deg);
+            transition: transform 0.3s ease-in-out;
+          }
+
+          button.list.open::after {
+            transform: rotate(135deg);
+          }
+
+          button.list > ul {
+            position: absolute;
+            visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 0 20px;
+            background-color: white;
+            left: -1px;
+            top: -1px;
+            z-index: 1;
+          }
+
+          button.list.open > ul {
+            visibility: visible;
+          }
+
+          button.list > ul > li {
+            width: 100%;
+            padding: 10px 0;
+            list-style: none;
+            border-bottom: 1px solid #cccccc;
+            transition: color 0.1s;
+          }
+
+          button.list > ul > li:hover,
+          button.list > ul > li.select {
+            color: #6cc26c;
           }
 
           .agreement {
