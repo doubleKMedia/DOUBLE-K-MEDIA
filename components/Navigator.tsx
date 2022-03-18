@@ -118,6 +118,30 @@ const Route = ({ routeInfo, isMenuOpen, path }: { routeInfo: routeInfoType; isMe
             opacity: 1;
             width: 100%;
           }
+
+          @media screen and (max-width: 1050px) {
+            .route.open > span.head {
+              font-size: max(16px, min(2.3vw, 24px));
+            }
+
+            .route.open > ul {
+              font-size: max(10px, 1.5vw);
+            }
+          }
+
+          @media screen and (max-width: 700px) {
+            .route.open {
+              gap: 10px;
+            }
+
+            .route.open > span.head {
+              font-size: max(16px, min(2.3vw, 24px));
+            }
+
+            .route.open > ul {
+              font-size: max(10px, 1.5vw);
+            }
+          }
         `}
       </style>
     </div>
@@ -152,7 +176,7 @@ const Nav = ({ mode }: { mode: 'dark' | 'light' }) => {
             justify-content: space-between;
             align-items: flex-start;
             gap: 50px;
-            width: 100vw;
+            width: 100%;
             padding: 50px 100px;
             transform: background-color 0.3s;
             z-index: 50;
@@ -185,16 +209,6 @@ const Nav = ({ mode }: { mode: 'dark' | 'light' }) => {
             color: var(--nav-color);
             padding-top: 14px;
             margin-right: 100px;
-          }
-
-          @media screen and (max-width: 1050px) {
-            .routes {
-              visibility: hidden;
-            }
-
-            nav.open > .routes {
-              visibility: visible;
-            }
           }
 
           .menu {
@@ -261,6 +275,48 @@ const Nav = ({ mode }: { mode: 'dark' | 'light' }) => {
             left: 0;
             width: 100%;
             margin: 0;
+          }
+
+          @media screen and (max-width: 1050px) {
+            nav {
+              padding: 50px 50px;
+            }
+
+            .menu {
+              top: 50px;
+              right: 50px;
+            }
+
+            .routes {
+              visibility: hidden;
+            }
+
+            nav.open > .routes {
+              visibility: visible;
+              gap: max(20px, 5vw) !important;
+            }
+          }
+
+          @media screen and (max-width: 700px) {
+            nav {
+              padding: 25px 25px;
+            }
+
+            .menu {
+              top: 25px;
+              right: 25px;
+            }
+
+            div.logo {
+              font-size: 20px;
+            }
+
+            nav.open > .routes {
+              flex-direction: column;
+              align-items: center;
+              gap: 30px !important;
+              top: 10vh;
+            }
           }
         `}
       </style>

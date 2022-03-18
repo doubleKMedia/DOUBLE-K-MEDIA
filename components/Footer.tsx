@@ -113,6 +113,52 @@ const Footer = () => {
           .detail > button {
             margin-left: 20px;
           }
+
+          @media screen and (max-width: 1050px) {
+            span.logo {
+              display: none;
+            }
+          }
+
+          @media screen and (max-width: 850px) {
+            footer {
+              padding: 40px 35px;
+            }
+
+            div.head {
+              flex-direction: column;
+              gap: 5px;
+            }
+          }
+
+          @media screen and (max-width: 700px) {
+            span.detail {
+              white-space: normal;
+              word-break: keep-all;
+              text-align: center;
+            }
+          }
+
+          @media screen and (max-width: 450px) {
+            footer {
+              padding: 20px 15px;
+            }
+
+            div.head {
+              flex-direction: column;
+              gap: 20px;
+            }
+
+            div.info {
+              flex-direction: column;
+              gap: 5px;
+            }
+
+            div.others {
+              flex-direction: column;
+              gap: 5px;
+            }
+          }
         `}
       </style>
     </footer>
