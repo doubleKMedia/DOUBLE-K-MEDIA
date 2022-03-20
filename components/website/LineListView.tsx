@@ -67,6 +67,29 @@ const LineListView = ({ listData }: { listData: listDataType }) => {
             width: 100%;
             height: 100%;
           }
+
+          @media screen and (max-width: 400px) {
+            section.list {
+              padding-left: 0;
+              padding-right: 0;
+            }
+          }
+
+          @media screen and (max-width: 330px) {
+            section.list {
+              gap: 50px;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            section.list > div {
+              width: 250px;
+            }
+
+            div.img {
+              width: 250px;
+              height: 133px;
+            }
+          }
         `}
       </style>
     </section>

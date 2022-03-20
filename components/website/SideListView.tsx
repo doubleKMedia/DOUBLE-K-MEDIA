@@ -97,7 +97,7 @@ const SideListView = ({ listData }: { listData: listDataType }) => {
             align-items: center;
             gap: 3vw;
             width: 100vw;
-            padding: 0 max(150px, 10vw);
+            padding: max(150px, 10vw);
             transform: translateX(calc(var(--viewNum) * -100%));
             transition: transform 1s ease-in-out;
           }
@@ -144,6 +144,61 @@ const SideListView = ({ listData }: { listData: listDataType }) => {
             margin-top: 30px;
             padding: 5px 20px;
             border-radius: 20px;
+          }
+
+          @media screen and (max-width: 900px) {
+            .view {
+              transform: scale(0.8);
+              width: 120%;
+              height: 400px;
+            }
+
+            .page {
+              width: 120vw;
+            }
+          }
+
+          @media screen and (max-width: 700px) {
+            .view {
+              transform: scale(0.6);
+              width: 160%;
+              height: 300px;
+            }
+
+            .page {
+              width: 160vw;
+            }
+          }
+          @media screen and (max-width: 550px) {
+            .view {
+              transform: scale(1);
+              width: 100%;
+              height: auto;
+            }
+
+            .view > button {
+              display: none;
+            }
+
+            section {
+              position: relative;
+              flex-direction: column;
+              height: auto;
+              gap: 50px;
+            }
+
+            .page {
+              flex-direction: column;
+              width: 100vw;
+              transform: none;
+              padding: 0 20px;
+            }
+
+            .page > .img {
+              width: 250px;
+              min-width: 250px;
+              height: 250px;
+            }
           }
         `}
       </style>

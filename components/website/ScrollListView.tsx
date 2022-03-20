@@ -192,6 +192,29 @@ const ScrollListView = ({ listData, link }: { listData: listDataType; link: stri
             background-color: #6cc26c;
             padding: 10px 0;
           }
+
+          @media screen and (max-width: 900px) {
+            section > div {
+              flex-direction: column !important;
+            }
+          }
+
+          @media screen and (max-width: 450px) {
+            .img {
+              width: 250px;
+              min-width: 250px;
+              height: 175px;
+            }
+
+            .info {
+              width: 250px;
+              min-width: 250px;
+            }
+
+            .production {
+              flex-direction: column;
+            }
+          }
         `}
       </style>
     </section>

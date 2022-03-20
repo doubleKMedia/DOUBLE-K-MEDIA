@@ -70,18 +70,19 @@ const Homepage: NextPage = () => {
 
           .template > .head > span:nth-child(1),
           .customized > .head > span:nth-child(1) {
-            font-size: 20px;
+            font-size: min(5vw, 20px);
           }
 
           .template > .head > span:nth-child(2),
           .customized > .head > span:nth-child(2) {
-            font-size: 25px;
+            font-size: min(6vw, 25px);
             font-weight: bold;
             margin-bottom: 10px;
           }
 
           .template > .head > span:nth-child(3),
           .customized > .head > span:nth-child(3) {
+            font-size: min(4vw, 16px);
             color: #6a6a6a;
           }
 

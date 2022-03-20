@@ -96,11 +96,11 @@ const WebsiteLayout = ({ children }: { children: ReactNode }) => {
           }
 
           .head > span:nth-child(1) {
-            font-size: 40px;
+            font-size: clamp(20px, 5vw, 40px);
           }
 
           .head > span:nth-child(2) {
-            font-size: 19px;
+            font-size: min(2.5vw, 19px);
           }
 
           .sub-nav {
@@ -108,7 +108,7 @@ const WebsiteLayout = ({ children }: { children: ReactNode }) => {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
+            gap: min(2vw, 30px);
             bottom: 0;
             transform: translateY(50%);
           }
@@ -118,8 +118,9 @@ const WebsiteLayout = ({ children }: { children: ReactNode }) => {
             justify-content: center;
             align-items: center;
             background-color: #c6c6c6;
-            width: 140px;
-            height: 50px;
+            font-size: min(1.5vw, 18px);
+            width: min(12vw, 140px);
+            height: min(4vw, 50px);
             color: #666666;
             border-radius: 30px;
           }
@@ -127,6 +128,12 @@ const WebsiteLayout = ({ children }: { children: ReactNode }) => {
           .sub-nav > a.open {
             background-color: #6cc26c;
             color: #f9f9f9;
+          }
+
+          @media screen and (max-width: 700px) {
+            .sub-nav {
+              display: none;
+            }
           }
         `}
       </style>

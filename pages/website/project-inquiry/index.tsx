@@ -726,6 +726,148 @@ const ProjectInquiry: NextPage = () => {
             padding: 20px 100px;
             border-radius: 50px;
           }
+
+          @media screen and (max-width: 1250px) {
+            div.line {
+              gap: 0;
+              padding-left: 0;
+              padding-right: 0;
+            }
+          }
+
+          @media screen and (max-width: 1150px) {
+            div.line {
+              flex-direction: column;
+              gap: 20px;
+            }
+
+            .line span.title {
+              text-align: center;
+              padding-right: 0;
+            }
+
+            textarea {
+              width: 50vw;
+            }
+
+            .agreement {
+              font-size: 12px;
+            }
+          }
+
+          @media screen and (max-width: 950px) {
+            .line > div {
+              gap: 5px;
+            }
+
+            .agreement {
+              font-size: 10px;
+            }
+          }
+
+          @media screen and (max-width: 850px) {
+            div.line {
+              align-items: flex-start;
+              padding-left: 30vw;
+            }
+
+            .line span.title {
+              padding: 0;
+            }
+
+            .line > div {
+              position: relative;
+              flex-direction: column;
+              align-items: flex-start;
+            }
+
+            .line > div > span {
+              position: absolute;
+              right: 100%;
+            }
+
+            .agreement {
+              padding: 15px;
+            }
+          }
+
+          @media screen and (max-width: 500px) {
+            div.line {
+              padding-left: 120px;
+            }
+          }
+          @media screen and (max-width: 450px) {
+            .question {
+              font-size: 20px;
+              padding-bottom: 24px;
+            }
+
+            div.line {
+              padding-left: 0px;
+              align-items: center;
+            }
+
+            .line > div {
+              align-items: center;
+            }
+
+            .line > div > div {
+              width: 100%;
+            }
+
+            .line div.align-flex-start {
+              align-items: center;
+            }
+
+            .line > div > span {
+              position: relative;
+              right: 0;
+              margin-bottom: 10px;
+            }
+
+            input.small {
+              width: 200px;
+            }
+
+            button.list {
+              width: 200px;
+            }
+
+            .line span.check-box {
+              width: 100%;
+              margin-left: 15px;
+            }
+
+            button.submit {
+              font-size: 15px;
+            }
+          }
+          @media screen and (max-width: 400px) {
+            .question {
+              font-size: 16px;
+              padding-bottom: 28px;
+            }
+
+            .line div.align-left {
+              flex-direction: column;
+              justify-content: center;
+            }
+
+            .line > div > div > span {
+              text-align: center;
+              font-size: 10px;
+            }
+
+            button.submit {
+              padding: 20px 50px;
+            }
+          }
+          @media screen and (max-width: 300px) {
+            .question {
+              font-size: 14px;
+              padding-bottom: 30px;
+            }
+          }
         `}
       </style>
     </WebsiteLayout>
