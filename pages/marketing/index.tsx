@@ -1,8 +1,7 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
-import { onlyNumberInput } from '../../utils/validation';
 
 type inputValueType = {
   companyName: string;
@@ -456,6 +455,89 @@ const Marketing: NextPage = () => {
             margin-top: 30px;
             background-color: #6cc26c;
             border-radius: 25px;
+          }
+
+          @media screen and (max-width: 1150px) {
+            .input-document {
+              padding: 50px;
+            }
+          }
+
+          @media screen and (max-width: 1100px) {
+            .input-document {
+              padding: 40px;
+            }
+
+            .box {
+              padding: 80px 40px;
+            }
+          }
+
+          @media screen and (max-width: 950px) {
+            div.row {
+              flex-direction: column;
+            }
+
+            .box {
+              padding: 80px;
+            }
+          }
+
+          @media screen and (max-width: 750px) {
+            div.input {
+              flex-direction: column;
+            }
+
+            div.input > span {
+              width: auto;
+            }
+
+            .agreement {
+              font-size: 12px;
+            }
+          }
+
+          @media screen and (max-width: 550px) {
+            .box {
+              padding: 40px;
+            }
+          }
+
+          @media screen and (max-width: 450px) {
+            .input-document {
+              padding: 40px 0;
+            }
+
+            .box {
+              gap: 30px;
+              border-radius: 30px;
+            }
+
+            div.row {
+              gap: 30px;
+            }
+
+            span.ment {
+              font-size: 15px;
+            }
+
+            input[type='text'],
+            textarea,
+            button.list,
+            button.list > ul {
+              width: 200px;
+              font-size: 12px;
+            }
+
+            .agreement {
+              font-size: 10px;
+            }
+
+            .submit {
+              width: 180px;
+              height: 40px;
+              font-size: 15px;
+            }
           }
         `}
       </style>
