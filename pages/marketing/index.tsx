@@ -55,19 +55,31 @@ const Marketing: NextPage = () => {
 
   const sendDataToServer = async () => {
     setIsSending(true);
-    const url = '/api/hello'; //변경예정
+    const url = '/api-server/inquiry';
     const form = new FormData();
 
-    form.append('data', JSON.stringify(inputValue));
+    const newInputValue = {
+      inquiryType: 'marketing',
+      ccustomerCompany: inputValue.companyName,
+      customerName: inputValue.contactPerson,
+      customerPhone: inputValue.contact,
+      customerEmail: inputValue.email,
+      customerContent: inputValue.inquiriesAndRequirements,
+      marketingKpi: inputValue.marketingKPI,
+    };
+
+    form.append('data', JSON.stringify(newInputValue));
 
     const response = await fetch(url, { method: 'POST', body: form });
 
-    if (response.ok) alert('신청이 완료되었습니다.\n빠른 시일내에 답변 드리도록 하겠습니다.');
+    if (response.ok) {
+      alert('신청이 완료되었습니다.\n빠른 시일내에 답변 드리도록 하겠습니다.');
+      sessionStorage.setItem('marketingInputValue', 'undefined');
+      window.location.href = '/';
+    } else if (response.status === 400) alert(await response.text());
     else alert('오류가 발생하였습니다.\n잠시 후 다시 시도해 주세요.');
 
     setIsSending(false);
-    sessionStorage.setItem('marketingInputValue', 'undefined');
-    window.location.href = '/';
   };
 
   useEffect(() => {

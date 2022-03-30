@@ -18,9 +18,10 @@ export type inputValueType = {
   referenceSiteAddress: [string, string, string];
   inquiriesAndRequirements: string;
   preventionOfAutomaticRegistration: string;
+  captchaKey: string;
 };
 
-const ProjectInquiry: NextPage = () => {
+const ProjectInquiry: NextPage<{ captcha: { cpk: string; imgSrc: string } }> = ({ captcha }) => {
   const EMAIL_LIST = [
     { name: '직접 입력', host: '직접 입력' },
     { name: '네이버', host: 'naver.com' },
@@ -45,6 +46,7 @@ const ProjectInquiry: NextPage = () => {
     referenceSiteAddress: ['', '', ''],
     inquiriesAndRequirements: '',
     preventionOfAutomaticRegistration: '',
+    captchaKey: captcha.cpk,
   });
   const [file, setFile] = useState<File>();
   const [lastCheck, setLastCheck] = useState<boolean>(false);
@@ -68,22 +70,50 @@ const ProjectInquiry: NextPage = () => {
     else successCallback();
   };
 
+  const changeChaptcha = async () => {
+    const { cpk } = await (await fetch('/api-server/captchaKey', { method: 'GET' })).json();
+    setInputValue({ ...inputValue, captchaKey: cpk });
+  };
+
   const sendDataToServer = async () => {
     setIsSending(true);
-    const url = '/api/hello'; //변경예정
+    const url = '/api-server/inquiry';
     const form = new FormData();
 
+    const newInputValue = {
+      inquiryType: 'homepage',
+      customerCompany: inputValue.companyName,
+      customerName: inputValue.contactPerson,
+      customerRank: inputValue.rank,
+      customerPhone: inputValue.contact,
+      customerEmail: inputValue.email.join('@'),
+      serviceType: inputValue.manufacturingField.join(','),
+      servicePage: inputValue.numberOfPagesProduced,
+      serviceBudget: inputValue.productionBudget,
+      customerHpage: inputValue.retentionWebsiteAddress,
+      customerRpage1: inputValue.referenceSiteAddress[0],
+      customerRpage2: inputValue.referenceSiteAddress[1],
+      customerRpage3: inputValue.referenceSiteAddress[2],
+      customerContent: inputValue.inquiriesAndRequirements,
+      captcha: {
+        cpk: inputValue.captchaKey,
+        value: inputValue.preventionOfAutomaticRegistration,
+      },
+    };
+
     if (file) form.append('file', file);
-    form.append('data', JSON.stringify(inputValue));
+    form.append('data', JSON.stringify(newInputValue));
 
     const response = await fetch(url, { method: 'POST', body: form });
 
-    if (response.ok) alert('신청이 완료되었습니다.\n빠른 시일내에 답변 드리도록 하겠습니다.');
+    if (response.ok) {
+      alert('신청이 완료되었습니다.\n빠른 시일내에 답변 드리도록 하겠습니다.');
+      sessionStorage.setItem('inputValue', 'undefined');
+      window.location.href = '/';
+    } else if (response.status === 400) alert(await response.text());
     else alert('오류가 발생하였습니다.\n잠시 후 다시 시도해 주세요.');
 
     setIsSending(false);
-    sessionStorage.setItem('inputValue', 'undefined');
-    window.location.href = '/';
   };
 
   const inputCommonFunc = (e: any, objectKey: keyof inputValueType, index = 0) => {
@@ -361,7 +391,14 @@ const ProjectInquiry: NextPage = () => {
                 </span>
                 <div className="col left">
                   <div className="align-left gap">
-                    <Image src="/null.png" width={100} height={40} objectFit="cover" alt="자동등록방지 이미지" />
+                    <Image
+                      onClick={changeChaptcha}
+                      src={`${captcha.imgSrc}/${inputValue.captchaKey}`}
+                      width={200}
+                      height={90}
+                      objectFit="cover"
+                      alt="자동등록방지 이미지"
+                    />
                     <input onInput={input.preventionOfAutomaticRegistration} className="small" type="text" minLength={1} maxLength={10}></input>
                   </div>
                   <span>(글자가 잘 안보이는 경우, 클릭하시면 새로운 글자가 나옵니다.)</span>
@@ -875,3 +912,16 @@ const ProjectInquiry: NextPage = () => {
 };
 
 export default ProjectInquiry;
+
+export const getServerSideProps = async () => {
+  const HOST = 'http://192.168.1.100:8080';
+  const { cpk } = await (await fetch(`${HOST}/api/captchaKey`, { method: 'GET' })).json();
+  return {
+    props: {
+      captcha: {
+        imgSrc: `${HOST}/api/captchaImage`,
+        cpk,
+      },
+    },
+  };
+};

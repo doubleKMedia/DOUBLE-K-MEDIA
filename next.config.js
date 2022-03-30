@@ -1,4 +1,5 @@
 const serverHost = process.env.SERVER_HOST;
+const serverPort = process.env.SERVER_PORT;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -10,12 +11,18 @@ const nextConfig = {
         destination: '/website/homepage',
         permanent: true,
       },
+    ];
+  },
+  rewrites: async () => {
+    return [
       {
-        source: '/api-server/',
-        destination: `http://${serverHost}/api`,
-        permanent: true,
+        source: '/api-server/:path',
+        destination: `http://${serverHost}:${serverPort}/api/:path`,
       },
     ];
+  },
+  images: {
+    domains: [serverHost],
   },
 };
 
