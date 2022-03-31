@@ -40,7 +40,7 @@ const Footer = () => {
           {'EMAIL : doublek@naver.com 고객센터 : 02-5555-5555 (09:00 ~ 18:00 / 점심시간 12:00 ~ 13:00 / 토,일,공휴일 휴무)'}
           <br />
           {'Copyright ⓒ 2021 Double K Media. All rights reserved.'}
-          <button onClick={() => (window.location.href = '/admin')}>{'[관리자 로그인]'}</button>
+          <button onClick={() => (window.location.href = '/admin-host')}>{'[관리자 로그인]'}</button>
         </span>
       </div>
 

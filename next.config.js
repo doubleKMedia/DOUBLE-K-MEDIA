@@ -1,5 +1,6 @@
 const serverHost = process.env.SERVER_HOST;
 const serverPort = process.env.SERVER_PORT;
+const adminHost = process.env.ADMIN_HOST;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -18,6 +19,10 @@ const nextConfig = {
       {
         source: '/api-server/:path',
         destination: `http://${serverHost}:${serverPort}/api/:path`,
+      },
+      {
+        source: '/admin-host',
+        destination: adminHost,
       },
     ];
   },
