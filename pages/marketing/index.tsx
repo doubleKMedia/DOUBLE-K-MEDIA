@@ -60,11 +60,12 @@ const Marketing: NextPage = () => {
 
     const newInputValue = {
       inquiryType: 'marketing',
-      ccustomerCompany: inputValue.companyName,
+      customerCompany: inputValue.companyName,
       customerName: inputValue.contactPerson,
       customerPhone: inputValue.contact,
       customerEmail: inputValue.email,
       customerContent: inputValue.inquiriesAndRequirements,
+      serviceBudget: inputValue.advertisingBudget,
       marketingKpi: inputValue.marketingKPI,
     };
 
