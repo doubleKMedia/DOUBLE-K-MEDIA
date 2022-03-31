@@ -138,7 +138,7 @@ const ProjectInquiry: NextPage<{ captcha: { cpk: string; imgSrc: string } }> = (
       const object = { manufacturingField: [...inputValue.manufacturingField] };
 
       if (e.currentTarget.checked) object.manufacturingField.push(e.currentTarget.value);
-      else object.manufacturingField.filter((v) => v !== e.currentTarget.value);
+      else object.manufacturingField = object.manufacturingField.filter((v) => v !== e.currentTarget.value);
 
       setInputValue({ ...inputValue, ...object });
       saveInputData({ ...inputValue, ...object });
@@ -289,7 +289,7 @@ const ProjectInquiry: NextPage<{ captcha: { cpk: string; imgSrc: string } }> = (
                   <div key={i}>
                     <input
                       onChange={input.manufacturingField}
-                      checked={inputValue.manufacturingField.findIndex((v) => v === value) !== -1}
+                      defaultChecked={inputValue.manufacturingField.findIndex((v) => v === value) !== -1}
                       type="checkbox"
                       value={value}
                     ></input>
@@ -914,7 +914,8 @@ const ProjectInquiry: NextPage<{ captcha: { cpk: string; imgSrc: string } }> = (
 export default ProjectInquiry;
 
 export const getServerSideProps = async () => {
-  const HOST = 'http://192.168.1.100:8080';
+  const { SERVER_HOST, SERVER_PORT } = process.env;
+  const HOST = `http://${SERVER_HOST}:${SERVER_PORT}`;
   const { cpk } = await (await fetch(`${HOST}/api/captchaKey`, { method: 'GET' })).json();
   return {
     props: {
