@@ -104,14 +104,18 @@ const ProjectInquiry: NextPage<{ captcha: { cpk: string; imgSrc: string } }> = (
     if (file) form.append('file', file);
     form.append('data', JSON.stringify(newInputValue));
 
-    const response = await fetch(url, { method: 'POST', body: form });
+    try {
+      const response = await fetch(url, { method: 'POST', body: form });
 
-    if (response.ok) {
-      alert('신청이 완료되었습니다.\n빠른 시일내에 답변 드리도록 하겠습니다.');
-      sessionStorage.setItem('inputValue', 'undefined');
-      window.location.href = '/';
-    } else if (response.status === 400) alert(await response.text());
-    else alert('오류가 발생하였습니다.\n잠시 후 다시 시도해 주세요.');
+      if (response.ok) {
+        alert('신청이 완료되었습니다.\n빠른 시일내에 답변 드리도록 하겠습니다.');
+        sessionStorage.setItem('inputValue', 'undefined');
+        window.location.href = '/';
+      } else alert(await response.text());
+    } catch (error) {
+      console.error(error);
+      alert('오류가 발생하였습니다.\n잠시 후 다시 시도해 주세요.');
+    }
 
     setIsSending(false);
   };
@@ -916,7 +920,15 @@ export default ProjectInquiry;
 export const getServerSideProps = async () => {
   const { SERVER_HOST, SERVER_PORT } = process.env;
   const HOST = `http://${SERVER_HOST}:${SERVER_PORT}`;
-  const { cpk } = await (await fetch(`${HOST}/api/captchaKey`, { method: 'GET' })).json();
+  let cpk = '';
+
+  try {
+    const data: { cpk: string } = await (await fetch(`${HOST}/api/captchaKey`, { method: 'GET' })).json();
+    cpk = data.cpk;
+  } catch (error) {
+    console.error(error);
+  }
+
   return {
     props: {
       captcha: {

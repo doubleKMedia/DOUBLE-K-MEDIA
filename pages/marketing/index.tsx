@@ -70,14 +70,18 @@ const Marketing: NextPage = () => {
 
     form.append('data', JSON.stringify(newInputValue));
 
-    const response = await fetch(url, { method: 'POST', body: form });
+    try {
+      const response = await fetch(url, { method: 'POST', body: form });
 
-    if (response.ok) {
-      alert('신청이 완료되었습니다.\n빠른 시일내에 답변 드리도록 하겠습니다.');
-      sessionStorage.setItem('marketingInputValue', 'undefined');
-      window.location.href = '/';
-    } else if (response.status === 400) alert(await response.text());
-    else alert('오류가 발생하였습니다.\n잠시 후 다시 시도해 주세요.');
+      if (response.ok) {
+        alert('신청이 완료되었습니다.\n빠른 시일내에 답변 드리도록 하겠습니다.');
+        sessionStorage.setItem('marketingInputValue', 'undefined');
+        window.location.href = '/';
+      } else alert(await response.text());
+    } catch (error) {
+      console.error(error);
+      alert('오류가 발생하였습니다.\n잠시 후 다시 시도해 주세요.');
+    }
 
     setIsSending(false);
   };
