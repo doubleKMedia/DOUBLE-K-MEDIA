@@ -10,6 +10,7 @@ const Layout = ({ children, title, description, mode }: { children: ReactNode; t
         <title>{title} | 더블케이미디어</title>
         <meta name="description" content={description} />
         <link rel="icon" href="/favicon.ico" />
+        <meta name="naver-site-verification" content="77c98e7e818fcb7b68993877c9d747d6afe41e41" />
       </Head>
 
       <Nav mode={mode} />
