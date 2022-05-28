@@ -72,33 +72,33 @@ const Home: NextPage = () => {
           <span className="title-ment">
             DOUBLE K MEDIA는<strong>이렇게 일합니다</strong>
           </span>
-          <OrderCard src="/null.png" direction="left" number={1} title="인사이트 분석" isLast={false}>
+          <OrderCard src="/home/insight.jpg" direction="left" number={1} title="인사이트 분석" isLast={false}>
             시장 현황, 자사/경쟁사 비교, 타겟 등<br />
             다양한 인사이트를 분석하여
             <br />
             정확한 마케팅 방향 설정을 위한 뼈대 구축
           </OrderCard>
-          <OrderCard src="/null.png" direction="right" number={2} title="마케팅 전략 도출" isLast={false}>
+          <OrderCard src="/home/marketing_strategy.jpg" direction="right" number={2} title="마케팅 전략 도출" isLast={false}>
             브랜드에 관한 인사이트를 토대로
             <br />
             마케팅 방향 설정 및 차별화된 마케팅 포인트 발굴
           </OrderCard>
-          <OrderCard src="/null.png" direction="left" number={3} title="커뮤니케이션 컨셉 개발" isLast={false}>
+          <OrderCard src="/home/communication.jpg" direction="left" number={3} title="커뮤니케이션 컨셉 개발" isLast={false}>
             브랜드 이미지와 타겟의 니즈를 기반으로
             <br />
             주요 타겟을 공략하기 위한 커뮤니케이션 컨셉 및 메시지 개발
           </OrderCard>
-          <OrderCard src="/null.png" direction="right" number={4} title="캠페인 전략 설정" isLast={false}>
+          <OrderCard src="/home/campaign_strategy.jpg" direction="right" number={4} title="캠페인 전략 설정" isLast={false}>
             캠페인 목표를 수립하고 목표 달성을 위한
             <br />
             장/단기 캠페인 마케팅 전략 설정
           </OrderCard>
-          <OrderCard src="/null.png" direction="left" number={5} title="미디어 선정" isLast={false}>
+          <OrderCard src="/home/media_selection.jpg" direction="left" number={5} title="미디어 선정" isLast={false}>
             각 미디어가 보유한 타겟팅 기술, 노출 지면 등을 고려하여
             <br />
             설정한 캠페인 전략에 최적화된 매체 선정
           </OrderCard>
-          <OrderCard src="/null.png" direction="right" number={6} title="운영 및 보고" isLast={true}>
+          <OrderCard src="/home/operations_and_reporting.jpg" direction="right" number={6} title="운영 및 보고" isLast={true}>
             지속적인 성과 개선을 위한 효율 기반의 매체 운영,
             <br />
             캠페인 운영 성과에 대한 정기적인 데이터 분석 및 보고
