@@ -71,6 +71,7 @@ const SideListView = ({ listData }: { listData: listDataType }) => {
             width: 75px;
             height: 150px;
             z-index: 1;
+            visibility: ${maxViewNumber === 0 ? 'hidden' : 'visible'};
           }
 
           .view > button:nth-child(1) {
